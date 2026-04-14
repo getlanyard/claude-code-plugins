@@ -8,26 +8,17 @@ version: 0.1.0
 
 ## Practical Guidelines
 
-### Project Structure and Paths
+### Project Structure
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
-
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_INDEX` | `.sdd/index.md` |
-| `SDD_PROJECT_FOLDER` | `.sdd/{FEATURE}/` |
-| `SDD_SPECIFICATION_DOCUMENT` | `.sdd/{FEATURE}/specification.md` |
-| `SDD_DESIGN_DOCUMENT` | `.sdd/{FEATURE}/design.md` |
-Where `{FEATURE}` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`).
+All SDD artifacts live in `.sdd/{feature}/` where `{feature}` is the kebab-case feature name (e.g., `user-authentication`).
 
 ### Templates
 
-- `SDD_TEMPLATE_DESIGN` located in `templates/design.template.md` used for design documents
+- Design template: `templates/design.template.md`
 
 ### Project Guidelines
 
-Use the `project-guidelines` skill to read and resolve project conventions before designing.
+Use the `handbook` skill to read and resolve project conventions before designing.
 
 ### Domain Skills
 
@@ -75,13 +66,13 @@ Your **GOAL** is to complete the design template for the feature, **excluding** 
 You MUST use the Task tool to launch a subagent that writes the design. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Write a design document for {FEATURE} at {SDD_DESIGN_DOCUMENT}.
+> Write a design document for {FEATURE} at .sdd/{feature}/design.md.
 >
 > **Read these files:**
-> - Specification: {SDD_SPECIFICATION_DOCUMENT}
+> - Specification: .sdd/{feature}/specification.md
 > - Research: `.sdd/{FEATURE}/research.md` (if it exists) — focus on the technical side: existing code patterns, integration points, available infrastructure, prior art, and constraints that affect the architecture. Use it to sanity-check your design approach.
-> - Design template: {SDD_TEMPLATE_DESIGN}
-> - Project conventions: use the `project-guidelines` skill
+> - Design template: templates/design.template.md
+> - Project conventions: use the `handbook` skill
 >
 > **Template guidance:**
 > - Follow the template structure exactly
@@ -112,14 +103,14 @@ You MUST use the Task tool to launch a subagent that writes the design. Do NOT w
 
 **Step 2: Review the design**
 
-Use the `review` skill to perform a **Design Review** of the design at {SDD_DESIGN_DOCUMENT}.
+Use the `review` skill to perform a **Design Review** of the design at .sdd/{feature}/design.md.
 
 **Step 3: Fix issues (if any)**
 
 If the review finds P0 or P1 issues, use the Task tool to launch a subagent to fix them. Do NOT fix them yourself.
 
 **Subagent prompt:**
-> Fix the following issues in the design at {SDD_DESIGN_DOCUMENT}, using the specification at {SDD_SPECIFICATION_DOCUMENT} as reference:
+> Fix the following issues in the design at .sdd/{feature}/design.md, using the specification at .sdd/{feature}/specification.md as reference:
 >
 > {paste review findings here}
 >

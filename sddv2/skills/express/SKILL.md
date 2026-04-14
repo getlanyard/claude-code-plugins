@@ -54,6 +54,6 @@ Continue automatically once the task breakdown from Step 3 is complete.
 
 When all steps are done, report:
 - What was implemented
-- How many tasks/phases were completed
+- How many tasks were completed
 - Any review findings that were resolved along the way
 - Any outstanding P2/P3 observations from reviews

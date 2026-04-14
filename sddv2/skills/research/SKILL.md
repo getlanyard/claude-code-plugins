@@ -1,7 +1,7 @@
 ---
 name: research
 description: Collaboratively explore the codebase and the web to understand a feature's problem space. Use this skill when you need to investigate existing code, patterns, and integration points before designing. Works in short research cycles with the user rather than producing findings in isolation.
-version: 0.2.0
+version: 0.1.0
 ---
 
 # Research
@@ -12,21 +12,13 @@ The process has five phases: **Observe → Orient → Diverge → Evaluate → S
 
 ## Practical Guidelines
 
-### Project Structure and Paths
+### Project Structure
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
-
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_PROJECT_FOLDER` | `.sdd/{FEATURE}/` |
-| `SDD_RESEARCH_DOCUMENT` | `.sdd/{FEATURE}/research.md` |
-
-Where `{FEATURE}` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`). Create the directory if it doesn't exist.
+All SDD artifacts live in `.sdd/{feature}/` where `{feature}` is the kebab-case feature name (e.g., `user-authentication`). Create the directory if it doesn't exist.
 
 ### Project Guidelines
 
-Use the `project-guidelines` skill to read and resolve project conventions before starting research.
+Use the `handbook` skill to read and resolve project conventions before starting research.
 
 ### Domain Skills
 

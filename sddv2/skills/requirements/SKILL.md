@@ -8,27 +8,18 @@ version: 0.1.0
 
 ## Practical Guidelines
 
-### Project Structure and Paths
+### Project Structure
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
-
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_INDEX` | `.sdd/index.md` |
-| `SDD_PROJECT_FOLDER` | `.sdd/{FEATURE}/` |
-| `SDD_SPECIFICATION_DOCUMENT` | `.sdd/{FEATURE}/specification.md` |
-| `SDD_DESIGN_DOCUMENT` | `.sdd/{FEATURE}/design.md` |
-Where `{FEATURE}` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`).
+All SDD artifacts live in `.sdd/{feature}/` where `{feature}` is the kebab-case feature name (e.g., `user-authentication`).
 
 ### Templates
 
-- `SDD_TEMPLATE_INDEX` located in `templates/index.template.md` used for feature index
-- `SDD_TEMPLATE_SPECIFICATION` located in `templates/specification.template.md` used for initial requirements gathering
+- Specification template: `templates/specification.template.md`
+- Feature index template: `templates/index.template.md`
 
 ### Project Guidelines
 
-Use the `project-guidelines` skill to read and resolve project conventions. These conventions affect how specifications are structured.
+Use the `handbook` skill to read and resolve project conventions. These conventions affect how specifications are structured.
 
 ### Domain Skills
 
@@ -47,7 +38,7 @@ Load relevant skills and apply their mindset and practices throughout specificat
 ## Process
 
 You **MUST** explore the codebase using the Explore tool before doing **ANY** of the below.
-You **MUST** understand project guidelines by using the `project-guidelines` skill
+You **MUST** understand project guidelines by using the `handbook` skill
 
 ### Creating a Specification
 
@@ -68,7 +59,7 @@ Your **GOAL** is to complete all parts of the specification template for the fea
 **Scope:** A single specification should represent approximately 1 day of implementation work. If the feature is larger, break it into multiple specifications. During the discovery interview, sense check the scope and suggest splitting if necessary.
 
 **Template guidance:**
-- Follow the template structure as defined in {SDD_TEMPLATE_SPECIFICATION}
+- Follow the template structure as defined in templates/specification.template.md
 - Sections marked "optional" or "if needed" can be omitted entirely if not applicable
 - Do NOT add new sections that aren't in the template
 
@@ -103,10 +94,10 @@ Keep asking questions until you can unambiguously fill out every section of the 
 Once you have enough information to fill out every section unambiguously, use the Task tool to launch a subagent that writes the specification. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Write the specification for {FEATURE} at {SDD_SPECIFICATION_DOCUMENT}.
+> Write the specification for {FEATURE} at .sdd/{feature}/specification.md.
 >
 > **Read:**
-> - Specification template: {SDD_TEMPLATE_SPECIFICATION}
+> - Specification template: templates/specification.template.md
 > - Research findings: `.sdd/{FEATURE}/research.md` (if it exists)
 >
 > **Context from discovery interview:**
@@ -121,14 +112,14 @@ Once you have enough information to fill out every section unambiguously, use th
 
 **Phase 4: Review the Specification**
 
-Use the `review` skill to perform a **Specification Review** of the specification at {SDD_SPECIFICATION_DOCUMENT}.
+Use the `review` skill to perform a **Specification Review** of the specification at .sdd/{feature}/specification.md.
 
 **Phase 5: Fix issues (if any)**
 
 If the review finds P0 or P1 issues, use the Task tool to launch a subagent to fix them. Do NOT fix them yourself.
 
 **Subagent prompt:**
-> Fix the following issues in the specification at {SDD_SPECIFICATION_DOCUMENT}, using the template at {SDD_TEMPLATE_SPECIFICATION} as reference:
+> Fix the following issues in the specification at .sdd/{feature}/specification.md, using the template at templates/specification.template.md as reference:
 >
 > {paste review findings here}
 >

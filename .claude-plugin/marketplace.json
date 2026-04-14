@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "sddv2",
-      "source": ".",
+      "source": "./sddv2",
       "description": "Spec Driven Development v2 - structured workflow for research, specification, design, task breakdown, implementation, and review with context management, test quality enforcement, and ADR generation."
     }
   ]

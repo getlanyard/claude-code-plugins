@@ -1,6 +1,6 @@
 # Project Guidelines
 
-This file defines project-specific conventions that SDD agents must follow during the design phase. Place this file at `.sdd/guide.md` in your project root.
+This file defines project-specific conventions that SDD agents must follow during the design phase. Place this file at `.sdd/handbook.md` in your project root.
 
 ---
 

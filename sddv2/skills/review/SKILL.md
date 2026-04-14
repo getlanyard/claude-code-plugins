@@ -8,23 +8,13 @@ version: 0.1.0
 
 ## Practical Guidelines
 
-### Project Structure and Paths
+### Project Structure
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
-
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_INDEX` | `.sdd/index.md` |
-| `SDD_PROJECT_FOLDER` | `.sdd/{FEATURE}/` |
-| `SDD_SPECIFICATION_DOCUMENT` | `.sdd/{FEATURE}/specification.md` |
-| `SDD_DESIGN_DOCUMENT` | `.sdd/{FEATURE}/design.md` |
-| `SDD_TASKS_DOCUMENT` | `.sdd/{FEATURE}/tasks.md` |
-Where `{FEATURE}` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`).
+All SDD artifacts live in `.sdd/{feature}/` where `{feature}` is the kebab-case feature name (e.g., `user-authentication`).
 
 ### Project Guidelines
 
-Use the `project-guidelines` skill to read and resolve project conventions before reviewing.
+Use the `handbook` skill to read and resolve project conventions before reviewing.
 
 ### Domain Skills
 
@@ -58,9 +48,9 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > Review the specification for {FEATURE}.
 >
 > **Read these files:**
-> - Specification: {SDD_SPECIFICATION_DOCUMENT}
+> - Specification: .sdd/{feature}/specification.md
 > - Research: `.sdd/{FEATURE}/research.md` (if it exists)
-> - Project conventions: use the `project-guidelines` skill
+> - Project conventions: use the `handbook` skill
 >
 > **Check for:**
 > - Every requirement describes WHAT and WHY, never HOW
@@ -83,10 +73,10 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > Review the design for {FEATURE}.
 >
 > **Read these files:**
-> - Specification: {SDD_SPECIFICATION_DOCUMENT}
-> - Design: {SDD_DESIGN_DOCUMENT}
+> - Specification: .sdd/{feature}/specification.md
+> - Design: .sdd/{feature}/design.md
 > - Research: `.sdd/{FEATURE}/research.md` (if it exists)
-> - Project conventions: use the `project-guidelines` skill
+> - Project conventions: use the `handbook` skill
 >
 > **Check for:**
 > - Every requirement addressed by design — no orphan requirements. Unchanged behavior covered by existing tests is not an orphan. Removed functionality needs its tests removed, not new tests added.
@@ -112,9 +102,9 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > Review the task breakdown for {FEATURE}.
 >
 > **Read these files:**
-> - Design: {SDD_DESIGN_DOCUMENT}
-> - Tasks: {SDD_TASKS_DOCUMENT}
-> - Project conventions: use the `project-guidelines` skill
+> - Design: .sdd/{feature}/design.md
+> - Tasks: .sdd/{feature}/tasks.md
+> - Project conventions: use the `handbook` skill
 >
 > **Check for:**
 > - Every component and requirement from design covered by tasks. No tasks for unchanged behavior already tested, no new tests for removed functionality — just remove the old tests.
@@ -137,8 +127,8 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > Review the implementation of {FEATURE}.
 >
 > **Read these files:**
-> - Tasks: {SDD_TASKS_DOCUMENT}
-> - Design: {SDD_DESIGN_DOCUMENT}
+> - Tasks: .sdd/{feature}/tasks.md
+> - Design: .sdd/{feature}/design.md
 > - Do NOT read the specification — the design already incorporates it
 >
 > **Steps:**
@@ -149,7 +139,7 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > 5. Search for stubs: `skip`, `todo`, `pending`, `pass` in test functions, placeholder assertions
 > 6. Search for dead code: unused imports, variables, functions, commented-out code
 > 7. Search for SDD leakage: `FR-`, `NFR-`, `TS-`, `ITS-`, `E2E-`, `REQ-` in code, comments, docstrings, or test names
-> 8. Verify project conventions (use `project-guidelines` skill): error handling, logging, naming, test structure, commit format
+> 8. Verify project conventions (use `handbook` skill): error handling, logging, naming, test structure, commit format
 > 9. Run tests, linters, and build
 >
 > Stubs/dead code: forbidden unless tracked in the tasks document with a clear reason.

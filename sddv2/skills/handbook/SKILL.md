@@ -1,5 +1,5 @@
 ---
-name: project-guidelines
+name: handbook
 description: Read and resolve project-specific guidelines. Use this when an agent needs to understand and follow project conventions for error handling, logging, naming, testing, commits, and pre-commit validation.
 version: 0.1.0
 ---
@@ -20,7 +20,7 @@ Use this skill when:
 
 ## The Guidelines File
 
-Project guidelines are stored at `.sdd/guide.md`.
+Project guidelines are stored at `.sdd/handbook.md`.
 
 This file can:
 1. **Reference existing documentation** — list paths to docs, READMEs, or other files containing conventions
@@ -30,7 +30,7 @@ This file can:
 
 ### Step 1: Check for Guidelines
 
-Check if `.sdd/guide.md` exists.
+Check if `.sdd/handbook.md` exists.
 
 If the file does not exist, skip to "When the Guide Does Not Exist" below.
 
@@ -48,7 +48,7 @@ Extract every convention mentioned in the guide and referenced documentation. Fo
 
 ## When the Guide Does Not Exist
 
-If `.sdd/guide.md` does not exist, use the Explore tool to search the codebase and discover conventions for at minimum:
+If `.sdd/handbook.md` does not exist, use the Explore tool to search the codebase and discover conventions for at minimum:
 
 - **Error handling** — error types, propagation patterns, error content
 - **Logging** — framework, log levels, structured logging
@@ -57,7 +57,7 @@ If `.sdd/guide.md` does not exist, use the Explore tool to search the codebase a
 - **Commits** — message format, conventional commits, scope conventions
 - **Pre-commit validation** — linting, formatting, type checking, test commands to run before committing
 
-Document what you find and recommend that a `.sdd/guide.md` be created.
+Document what you find and recommend that a `.sdd/handbook.md` be created.
 
 If guidelines are incomplete or ambiguous:
 

@@ -28,14 +28,7 @@ Do NOT write an ADR for:
 
 ### Project Structure and Paths
 
-ADRs live alongside the feature's SDD artifacts:
-
-| Variable | Path |
-|----------|------|
-| `SDD_ADR_TEMPLATE` | `templates/adr.template.md` |
-| `SDD_ADR_DOCUMENT` | `.sdd/{FEATURE}/adr.md` |
-
-Where `{FEATURE}` is the kebab-case feature name.
+ADRs live alongside the feature's SDD artifacts in `.sdd/{feature}/`.
 
 ### ADR Numbering
 
@@ -59,12 +52,12 @@ If nothing qualifies, tell the user and skip the ADR.
 Use the Task tool to launch a subagent.
 
 **Subagent prompt:**
-> Write an ADR for {FEATURE} at {SDD_ADR_DOCUMENT}.
+> Write an ADR for {FEATURE} at .sdd/{feature}/adr.md.
 >
 > **Read these files:**
 > - Research: `.sdd/{FEATURE}/research.md`
 > - Design: `.sdd/{FEATURE}/design.md`
-> - ADR template: {SDD_ADR_TEMPLATE}
+> - ADR template: templates/adr.template.md
 >
 > **Follow the template structure.** For each section:
 > - **Context**: 2-3 sentences. Written for someone who wasn't in the room. Why was a choice needed?

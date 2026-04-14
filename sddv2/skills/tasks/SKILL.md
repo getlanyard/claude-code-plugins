@@ -8,22 +8,13 @@ version: 0.1.0
 
 ## Practical Guidelines
 
-### Project Structure and Paths
+### Project Structure
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
-
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_INDEX` | `.sdd/index.md` |
-| `SDD_PROJECT_FOLDER` | `.sdd/{FEATURE}/` |
-| `SDD_SPECIFICATION_DOCUMENT` | `.sdd/{FEATURE}/specification.md` |
-| `SDD_DESIGN_DOCUMENT` | `.sdd/{FEATURE}/design.md` |
-Where `{FEATURE}` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`).
+All SDD artifacts live in `.sdd/{feature}/` where `{feature}` is the kebab-case feature name (e.g., `user-authentication`).
 
 ### Project Guidelines
 
-Use the `project-guidelines` skill to read and resolve project conventions before creating tasks.
+Use the `handbook` skill to read and resolve project conventions before creating tasks.
 
 ### Domain Skills
 
@@ -41,26 +32,25 @@ Load relevant skills and apply their mindset and practices throughout task break
 
 ### Templates
 
-- `SDD_TEMPLATE_TASKS` located in `templates/tasks.template.md` used for task breakdown documents
-- `SDD_TASKS_DOCUMENT` is `.sdd/{FEATURE}/tasks.md`
+- Task template: `templates/tasks.template.md`
 
 ## Process
 
 ### Task Breakdown
 
-Your **GOAL** is to create a task breakdown document at {SDD_TASKS_DOCUMENT} for the feature.
+Your **GOAL** is to create a task breakdown document at .sdd/{feature}/tasks.md for the feature.
 
 **Step 1: Write the task breakdown**
 
 You MUST use the Task tool to launch a subagent that writes the task breakdown. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Create the task breakdown for {FEATURE} at {SDD_TASKS_DOCUMENT}.
+> Create the task breakdown for {FEATURE} at .sdd/{feature}/tasks.md.
 >
 > **Read these files:**
-> - Design: {SDD_DESIGN_DOCUMENT}
-> - Task template: {SDD_TEMPLATE_TASKS}
-> - Project conventions: use the `project-guidelines` skill
+> - Design: .sdd/{feature}/design.md
+> - Task template: templates/tasks.template.md
+> - Project conventions: use the `handbook` skill
 > - Do NOT read the specification — the design already incorporates it
 >
 > **Follow the template structure exactly.** For each task:
@@ -83,14 +73,14 @@ You MUST use the Task tool to launch a subagent that writes the task breakdown. 
 
 **Step 2: Review the task breakdown**
 
-Use the `review` skill to perform a **Task Breakdown Review** of the tasks at {SDD_TASKS_DOCUMENT}.
+Use the `review` skill to perform a **Task Breakdown Review** of the tasks at .sdd/{feature}/tasks.md.
 
 **Step 3: Fix issues (if any)**
 
 If the review finds P0 or P1 issues, use the Task tool to launch a subagent to fix them. Do NOT fix them yourself.
 
 **Subagent prompt:**
-> Fix the following issues in the task breakdown at {SDD_TASKS_DOCUMENT}, using the design at {SDD_DESIGN_DOCUMENT} as reference:
+> Fix the following issues in the task breakdown at .sdd/{feature}/tasks.md, using the design at .sdd/{feature}/design.md as reference:
 >
 > {paste review findings here}
 >

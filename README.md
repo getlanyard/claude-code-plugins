@@ -1,130 +1,72 @@
-# SDD v2 (Spec Driven Development v2) Plugin
+# SDD v2 — Spec Driven Development for Claude Code
 
-A Claude Code plugin implementing Spec Driven Development methodology, decomposed into 6 focused skills for better maintainability and composability.
+A Claude Code plugin for structured feature development. Research the problem, specify requirements, design the solution, break it into tasks, implement with TDD, review, and record decisions.
 
-## Overview
+## Workflow
 
-SDD v2 provides the same methodology as the original SDD plugin but split into focused, independently usable skills. Each skill handles a specific phase of the development workflow.
+```
+research → requirements → plan → tasks → implement → review → adr
+```
 
-**Core Principle:** Write the specification first. Design with traceability. Implement with tests.
+Each step is a skill you can invoke independently or chain via `express`.
 
 ## Skills
 
-### 1. `requirements` - Specification
-Define what needs to be built with clarity and precision.
-- Discovery interview to gather requirements
-- Structured specification writing
-- Specification refinement
-- Artifact: `.sdd/[feature]/specification.md`
+| Skill | Purpose | Artifact |
+|-------|---------|----------|
+| `research` | Guided problem exploration (Observe → Orient → Diverge → Evaluate → Synthesize) | `.sdd/{feature}/research.md` |
+| `requirements` | Discovery interview → behavioral specification | `.sdd/{feature}/specification.md` |
+| `plan` | Design document with components, test scenarios, traceability | `.sdd/{feature}/design.md` |
+| `tasks` | Flat ordered task list sized for subagent execution | `.sdd/{feature}/tasks.md` |
+| `implement` | One subagent per task, TDD, review at the end | commits |
+| `review` | Spec / design / task / implementation review with P0-P3 severity | report |
+| `adr` | Architecture Decision Record for key choices | `.sdd/{feature}/adr.md` |
+| `express` | Chains requirements → plan → tasks → implement end-to-end | all of the above |
+| `setup` | Registers context monitoring hooks + discovers project conventions | `.sdd/handbook.md` |
+| `handbook` | Reads and resolves project conventions for all skills | — |
 
-### 2. `research` - Codebase Exploration
-Explore the codebase and capture findings before designing.
-- Read specification and project guidelines
-- Identify existing patterns, conventions, and integration points
-- Freeform research document (ephemeral)
-- Artifact: `.sdd/[feature]/research.md`
+## The Handbook
 
-### 3. `plan` - Design
-Plan how to implement the specification with full traceability.
-- Architecture overview and technology decisions
-- Component identification (Modified, Added, Used)
-- Test scenarios in Given/When/Then format
-- QA feasibility analysis
-- Design refinement
-- Artifact: `.sdd/[feature]/design.md`
+The single most impactful thing you can do for output quality is write a good `.sdd/handbook.md`. Every skill reads it. Every subagent follows it. Without it, agents guess at conventions and get things wrong — test locations, error handling patterns, naming, commit format, how to run linters.
 
-### 4. `tasks` - Task Breakdown
-Break down designs into implementation tasks.
-- Tasks grouped under phases, ordered by dependencies
-- Each task has implementation subtasks with checkboxes
-- Each task has test checkboxes referencing design test scenarios
-- Every requirement maps to tasks (and vice versa)
-- Artifact: `.sdd/[feature]/tasks.md`
+Run the `setup` skill to auto-discover conventions from your codebase, then refine the result. A good handbook covers:
 
-### 5. `implement` - Implementation
-Implement features task-by-task following the design document.
-- Task-by-task TDD implementation
-- Dead code and stub tracking
-- Auto-implement with stacked PRs and subagents
+- **Error handling** — error types, propagation patterns
+- **Testing** — framework, file locations, fixtures, what to test vs skip, how to run the suite
+- **Naming** — files, functions, modules
+- **Pre-commit validation** — lint, format, type check commands
+- **Project structure** — where new code goes
 
-### 6. `review` - Quality Assurance
-Validate documents and implementation at any stage.
-- Specification review: achievability, testability, no implementation details
-- Design review: traceability, no orphan scenarios, task coverage
-- Implementation review: matches design, code quality, test coverage
-- Severity-categorized findings (P0-P3)
+The handbook doesn't need to be exhaustive — it needs to capture what an agent would get wrong without it.
 
-## Example Usage
+### Domain Skills
 
-**Note:** Prefix prompts with the skill name to target a specific skill.
+Specialized review lenses loaded when relevant:
+
+`security` · `api-design` · `distributed-systems` · `data-engineering` · `devops-sre` · `infrastructure` · `low-level-systems`
+
+## Context Management
+
+The plugin includes two hooks (registered via `setup`) that prevent context exhaustion:
+
+- **sdd-statusline.js** — shows context usage in the status bar, writes metrics to a bridge file
+- **sdd-context-monitor.js** — reads the bridge file after tool uses, warns the agent at 35% remaining, stops it at 25%
+
+Run the `setup` skill once per project to register these hooks and discover project guidelines.
+
+## Usage
 
 ```
-Use requirements to create a specification for user-authentication
-Use research to explore the codebase for the shopping-cart feature
-Use plan to design the password-reset feature
-Use tasks to break down the design for password-reset
-Use implement to implement phase 1 of user-authentication
-Use review to review the specification for shopping-cart
+Use research to explore the problem space for {feature}
+Use requirements to write a spec for {feature}
+Use plan to design {feature}
+Use tasks to break down {feature}
+Use implement to build {feature}
+Use review to review the implementation of {feature}
+Use adr to record decisions for {feature}
+Use express to run the full workflow for {feature}
 ```
 
-## Domain Skills
+## License
 
-Domain-specific skills (api-design, security, distributed-systems, etc.) remain in the original `sdd` plugin. Install both plugins if you need domain skills alongside SDD v2.
-
-## Project Structure
-
-```
-.sdd/
-  index.md                    # Feature index
-  guide.md       # Project-specific conventions
-  [feature-name]/
-    specification.md          # What to build (requirements skill)
-    research.md               # Codebase findings (research skill)
-    tasks.md                  # Task breakdown with checkboxes (tasks skill)
-    design.md                 # How to build it (plan skill)
-```
-
-## Plugin Structure
-
-```
-sddv2/
-├── .claude-plugin/
-│   └── plugin.json
-├── .gitignore
-├── README.md
-└── skills/
-    ├── requirements/
-    │   ├── SKILL.md
-    │   └── templates/
-    │       ├── specification.template.md
-    │       └── index.template.md
-    ├── research/
-    │   └── SKILL.md
-    ├── plan/
-    │   ├── SKILL.md
-    │   └── templates/
-    │       ├── design.template.md
-    │       └── project-guidelines.template.md
-    ├── tasks/
-    │   ├── SKILL.md
-    │   └── templates/
-    │       └── tasks.template.md
-    ├── implement/
-    │   └── SKILL.md
-    └── review/
-        └── SKILL.md
-```
-
-## Key Principles
-
-1. **Specification as Contract** - The spec defines success and guides all decisions
-2. **Full Traceability** - Requirements and scenarios traced through design documents (not code)
-3. **Test Scenarios First** - Define Given/When/Then before implementation
-4. **Tests WITH Implementation** - No separate "add tests" phases
-5. **No Orphan Scenarios** - Every scenario must be assigned to a task
-6. **No Test Stubs** - All tests fully implemented (tracked if unavoidable)
-7. **No Dead Code** - Track intermediate code, resolve by final phase
-
-## Version
-
-0.1.0
+0BSD

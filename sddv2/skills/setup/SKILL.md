@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Set up SDD for a project. Registers context monitoring hooks and discovers project conventions for .sdd/guide.md. Run once per project.
+description: Set up SDD for a project. Registers context monitoring hooks and discovers project conventions for .sdd/handbook.md. Run once per project.
 version: 0.1.0
 ---
 
@@ -9,7 +9,7 @@ version: 0.1.0
 Set up SDD for the current project. This skill does two things:
 
 1. **Registers context monitoring hooks** — statusline + agent-facing warnings when context runs low
-2. **Creates project guidelines** — discovers conventions and writes `.sdd/guide.md`
+2. **Creates project guidelines** — discovers conventions and writes `.sdd/handbook.md`
 
 Run this once when starting to use SDD in a new project.
 
@@ -59,11 +59,11 @@ Where `{HOOKS_DIR}` is the absolute path found in step 1a.
 
 ### Step 2: Create Project Guidelines
 
-Create `.sdd/guide.md` with discovered project conventions. This file is read by every SDD skill so agents follow consistent patterns.
+Create `.sdd/handbook.md` with discovered project conventions. This file is read by every SDD skill so agents follow consistent patterns.
 
 **2a. Check for existing guidelines**
 
-If `.sdd/guide.md` already exists, read it and ask the user if they want to update it or skip this step.
+If `.sdd/handbook.md` already exists, read it and ask the user if they want to update it or skip this step.
 
 **2b. Discover conventions**
 
@@ -88,7 +88,7 @@ Look at:
 
 **2c. Write the guidelines file**
 
-Create `.sdd/guide.md` with the discovered conventions. Structure it as:
+Create `.sdd/handbook.md` with the discovered conventions. Structure it as:
 
 ```markdown
 # Project Guidelines

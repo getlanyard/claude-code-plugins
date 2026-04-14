@@ -8,23 +8,13 @@ version: 0.1.0
 
 ## Practical Guidelines
 
-### Project Structure and Paths
+### Project Structure
 
-All SDD artifacts live in the `.sdd/` folder at the repository root. Use these exact paths:
-
-| Variable | Path |
-|----------|------|
-| `SDD_FOLDER` | `.sdd/` |
-| `SDD_INDEX` | `.sdd/index.md` |
-| `SDD_PROJECT_FOLDER` | `.sdd/{FEATURE}/` |
-| `SDD_SPECIFICATION_DOCUMENT` | `.sdd/{FEATURE}/specification.md` |
-| `SDD_DESIGN_DOCUMENT` | `.sdd/{FEATURE}/design.md` |
-| `SDD_TASKS_DOCUMENT` | `.sdd/{FEATURE}/tasks.md` |
-Where `{FEATURE}` is the kebab-case name of the feature (e.g., `user-authentication`, `shopping-cart`).
+All SDD artifacts live in `.sdd/{feature}/` where `{feature}` is the kebab-case feature name (e.g., `user-authentication`).
 
 ### Project Guidelines
 
-Use the `project-guidelines` skill to read and resolve project conventions before implementing.
+Use the `handbook` skill to read and resolve project conventions before implementing.
 
 ### Domain Skills
 
@@ -59,7 +49,7 @@ Your **GOAL** is to implement all tasks from the task breakdown. One subagent pe
 
 **Step 0: Preparation**
 
-Read {SDD_TASKS_DOCUMENT} to get the ordered task list. This is your roadmap.
+Read .sdd/{feature}/tasks.md to get the ordered task list. This is your roadmap.
 
 **Step 1: Implement each task**
 
@@ -68,8 +58,8 @@ For each task in order:
 **1a. Task subagent** (MUST use Task tool — one subagent per task)
 
 Before launching, prepare the subagent's context:
-1. Extract the single task from {SDD_TASKS_DOCUMENT} (including subtasks, tests, details, and file lists)
-2. Extract ONLY the component sections from {SDD_DESIGN_DOCUMENT} referenced by this task
+1. Extract the single task from .sdd/{feature}/tasks.md (including subtasks, tests, details, and file lists)
+2. Extract ONLY the component sections from .sdd/{feature}/design.md referenced by this task
 3. Paste both into the subagent prompt below
 
 Do NOT pass the specification — the design already incorporates it.
@@ -82,7 +72,7 @@ Do NOT pass the specification — the design already incorporates it.
 > **Relevant design context:**
 > {paste relevant design sections here}
 >
-> **Project guidelines:** Use the `project-guidelines` skill to read and follow project conventions.
+> **Project guidelines:** Use the `handbook` skill to read and follow project conventions.
 >
 > **Testing (read this carefully):**
 > - Before writing any test, explore the existing test suite to understand test patterns, fixtures, and helpers already in use. Use them. Do NOT build parallel mock infrastructure when integration test support already exists.
@@ -93,11 +83,11 @@ Do NOT pass the specification — the design already incorporates it.
 >
 > **Other rules:**
 > - One commit per task
-> - Check off completed subtask and test checkboxes in {SDD_TASKS_DOCUMENT}, update status to "Done"
+> - Check off completed subtask and test checkboxes in .sdd/{feature}/tasks.md, update status to "Done"
 > - Only add comments where logic isn't self-evident
 > - **NEVER** add SDD artifact references in code or tests (no FR-XXX, TS-XX, requirement IDs, scenario IDs)
-> - Track any dead code in the Dead Code Tracking section of {SDD_TASKS_DOCUMENT}
-> - Track any stubs in the Stub Tracking section of {SDD_TASKS_DOCUMENT}
+> - Track any dead code in the Dead Code Tracking section of .sdd/{feature}/tasks.md
+> - Track any stubs in the Stub Tracking section of .sdd/{feature}/tasks.md
 >
 > **Escalation:** If you need to understand code beyond what's provided, or the task is too large for your remaining context, STOP and report what you completed and what remains. Partial progress with a clear handoff is better than exhausting context.
 
@@ -115,9 +105,9 @@ If the review finds P0 or P1 issues, use the Task tool to launch a fix subagent:
 >
 > {paste review findings here}
 >
-> **Project guidelines:** Use the `project-guidelines` skill to read and follow project conventions.
+> **Project guidelines:** Use the `handbook` skill to read and follow project conventions.
 >
-> Commit each fix. Run tests and linting after each fix. Update checkboxes in {SDD_TASKS_DOCUMENT} as needed.
+> Commit each fix. Run tests and linting after each fix. Update checkboxes in .sdd/{feature}/tasks.md as needed.
 >
 > **Escalation:** If a fix requires changes beyond the scope of the review findings, STOP and report what needs broader attention.
 
@@ -126,7 +116,7 @@ After the fix subagent completes, re-run Step 2 (review). Repeat Steps 2-3 until
 **Step 4: Final validation**
 
 Verify:
-- All subtask and test checkboxes in {SDD_TASKS_DOCUMENT} are checked
+- All subtask and test checkboxes in .sdd/{feature}/tasks.md are checked
 - All dead code has been resolved (used or removed)
 - All stubs have been resolved (implemented or removed)
 - All tests pass
