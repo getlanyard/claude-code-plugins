@@ -60,22 +60,22 @@ The index template defines the format of `.product/index.md`, which is created o
 
 ### Task 3: Setup skill
 
-- **Status:** Backlog
+- **Status:** Done
 - **Requirements:** pd-plugin:FR-01
 - **Files to read:** `sddv2/skills/requirements/SKILL.md` (pattern reference), `pd/skills/setup/templates/index.template.md`
 - **Files to modify/create:** `pd/skills/setup/SKILL.md`, `pd/skills/setup/templates/guide.template.md`
 
 **Subtasks:**
-- [ ] Create `guide.template.md` with sections: Project, Documentation Sources, Output Destination, Naming Conventions, Team Terminology & Glossary, Project Context
-- [ ] Create `SKILL.md` with YAML frontmatter (name, description starting with "Use this skill when...", version)
-- [ ] Write Phase 1 instructions: check if `.product/guide.md` exists, offer update vs replace if it does
-- [ ] Write Phase 2 instructions: interview about documentation locations, output destination, naming conventions, team terminology, product glossary
-- [ ] Write Phase 3 instructions: write guide.md via subagent using guide.template.md
-- [ ] Write Phase 4 instructions: confirm guide was saved, summarize what was configured
+- [x] Create `guide.template.md` with sections: Project, Documentation Sources, Output Destination, Naming Conventions, Team Terminology & Glossary, Project Context
+- [x] Create `SKILL.md` with YAML frontmatter (name, description starting with "Use this skill when...", version)
+- [x] Write Phase 1 instructions: check if `.product/guide.md` exists, offer update vs replace if it does
+- [x] Write Phase 2 instructions: interview about documentation locations, output destination, naming conventions, team terminology, product glossary
+- [x] Write Phase 3 instructions: write guide.md via subagent using guide.template.md
+- [x] Write Phase 4 instructions: confirm guide was saved, summarize what was configured
 
 **Tests:**
-- [ ] pd-plugin:TS-04 - Setup creates guide file: running `pd:setup` in a project with no `.product/` directory results in `.product/guide.md` being created
-- [ ] pd-plugin:TS-05 - Setup handles existing configuration: running `pd:setup` when `.product/guide.md` exists prompts the user to update or replace
+- [x] pd-plugin:TS-04 - Setup creates guide file: running `pd:setup` in a project with no `.product/` directory results in `.product/guide.md` being created
+- [x] pd-plugin:TS-05 - Setup handles existing configuration: running `pd:setup` when `.product/guide.md` exists prompts the user to update or replace
 
 **Details:**
 
