@@ -114,26 +114,26 @@ This is the first content skill and establishes the shared patterns that feature
 
 ### Task 5: Feature-spec skill
 
-- **Status:** Backlog
+- **Status:** Done
 - **Requirements:** pd-plugin:FR-03, pd-plugin:FR-05, pd-plugin:FR-07, pd-plugin:FR-08, pd-plugin:FR-09, pd-plugin:FR-10
 - **Files to read:** `pd/skills/product-spec/SKILL.md` (shared pattern reference), `pd/skills/product-spec/templates/product-spec.template.md` (template pattern reference), `pd/skills/setup/templates/index.template.md` (index format for filesystem output)
 - **Files to modify/create:** `pd/skills/feature-spec/SKILL.md`, `pd/skills/feature-spec/templates/feature-spec.template.md`
 
 **Subtasks:**
-- [ ] Create `feature-spec.template.md` with sections: Metadata table (including Parent Product Spec field), Problem & Context, User Stories, Acceptance Criteria, UX Flow, Edge Cases & Error States, Dependencies, Success Metrics, Out of Scope, Open Questions, Appendix
-- [ ] Create `SKILL.md` with YAML frontmatter
-- [ ] Write Phase 1 instructions: read `.product/guide.md`; if codebase access is available, search for related existing functionality; check available MCP tools for context
-- [ ] Write Phase 2 instructions: interview about user need, step-by-step UX flow, error states, empty states, permissions, dependencies, success metrics, scope; probe vague answers
-- [ ] Write Phase 3 instructions: write draft via subagent using feature-spec.template.md; include parent product spec linkage in frontmatter and prose if provided
-- [ ] Write Phase 4 instructions: self-review checklist — acceptance criteria testable (Given/When/Then or equivalent), UX flow complete step-by-step, edge cases cover empty/error/permissions, no vague language
-- [ ] Write Phase 5 instructions: output mode prompt with same three destinations, directory creation, index update, overwrite/version handling, and MCP failure fallback
+- [x] Create `feature-spec.template.md` with sections: Metadata table (including Parent Product Spec field), Problem & Context, User Stories, Acceptance Criteria, UX Flow, Edge Cases & Error States, Dependencies, Success Metrics, Out of Scope, Open Questions, Appendix
+- [x] Create `SKILL.md` with YAML frontmatter
+- [x] Write Phase 1 instructions: read `.product/guide.md`; if codebase access is available, search for related existing functionality; check available MCP tools for context
+- [x] Write Phase 2 instructions: interview about user need, step-by-step UX flow, error states, empty states, permissions, dependencies, success metrics, scope; probe vague answers
+- [x] Write Phase 3 instructions: write draft via subagent using feature-spec.template.md; include parent product spec linkage in frontmatter and prose if provided
+- [x] Write Phase 4 instructions: self-review checklist — acceptance criteria testable (Given/When/Then or equivalent), UX flow complete step-by-step, edge cases cover empty/error/permissions, no vague language
+- [x] Write Phase 5 instructions: output mode prompt with same three destinations, directory creation, index update, overwrite/version handling, and MCP failure fallback
 
 **Tests:**
-- [ ] pd-plugin:TS-08 - Feature spec includes codebase context: draft's Problem & Context section includes at least one file or function reference from the codebase when running in Claude Code
-- [ ] pd-plugin:TS-09 - Feature spec acceptance criteria are testable: all acceptance criteria use Given/When/Then or equivalent testable format after self-review
-- [ ] pd-plugin:TS-17 - No-codebase graceful skip: in Claude Desktop with no codebase access, the skill completes without errors and produces a draft without codebase references
-- [ ] pd-plugin:TS-12 - Filesystem output creates directory and updates index
-- [ ] pd-plugin:TS-16 - Name collision prompts user to overwrite or create a versioned copy
+- [x] pd-plugin:TS-08 - Feature spec includes codebase context: draft's Problem & Context section includes at least one file or function reference from the codebase when running in Claude Code
+- [x] pd-plugin:TS-09 - Feature spec acceptance criteria are testable: all acceptance criteria use Given/When/Then or equivalent testable format after self-review
+- [x] pd-plugin:TS-17 - No-codebase graceful skip: in Claude Desktop with no codebase access, the skill completes without errors and produces a draft without codebase references
+- [x] pd-plugin:TS-12 - Filesystem output creates directory and updates index
+- [x] pd-plugin:TS-16 - Name collision prompts user to overwrite or create a versioned copy
 
 **Details:**
 
