@@ -145,26 +145,26 @@ The feature-spec skill searches the codebase by default (opposite of product-spe
 
 ### Task 6: Bug-report skill
 
-- **Status:** Backlog
+- **Status:** Done
 - **Requirements:** pd-plugin:FR-04, pd-plugin:FR-05, pd-plugin:FR-06, pd-plugin:FR-07, pd-plugin:FR-08, pd-plugin:FR-09, pd-plugin:FR-10
 - **Files to read:** `pd/skills/product-spec/SKILL.md` (shared pattern reference), `pd/skills/feature-spec/SKILL.md` (codebase search pattern), `pd/skills/setup/templates/index.template.md` (index format for filesystem output)
 - **Files to modify/create:** `pd/skills/bug-report/SKILL.md`, `pd/skills/bug-report/templates/bug-report.template.md`
 
 **Subtasks:**
-- [ ] Create `bug-report.template.md` with sections: Metadata table, Summary, Steps to Reproduce, Expected Behavior, Actual Behavior, Environment, Impact, Frequency, Supporting Evidence, Related Context (optional), Appendix
-- [ ] Create `SKILL.md` with YAML frontmatter
-- [ ] Write Phase 1 instructions: read `.product/guide.md`; if codebase access, search for relevant code paths; check available MCP tools for related tickets
-- [ ] Write Phase 2 instructions: interview about what happened, help reconstruct reproduction steps from a neutral starting state, expected vs actual, environment, severity, frequency, evidence; probe vague answers
-- [ ] Write Phase 3 instructions: write draft via subagent using bug-report.template.md
-- [ ] Write Phase 4 instructions: self-review checklist — steps reproducible from neutral state, environment specified, expected vs actual distinct, severity assessed
-- [ ] Write Phase 5 instructions: output mode prompt saving to `.product/bugs/{slug}/bug-report.md` (note the bugs/ subdirectory convention), with directory creation, index update, overwrite/version handling, and MCP failure fallback
+- [x] Create `bug-report.template.md` with sections: Metadata table, Summary, Steps to Reproduce, Expected Behavior, Actual Behavior, Environment, Impact, Frequency, Supporting Evidence, Related Context (optional), Appendix
+- [x] Create `SKILL.md` with YAML frontmatter
+- [x] Write Phase 1 instructions: read `.product/guide.md`; if codebase access, search for relevant code paths; check available MCP tools for related tickets
+- [x] Write Phase 2 instructions: interview about what happened, help reconstruct reproduction steps from a neutral starting state, expected vs actual, environment, severity, frequency, evidence; probe vague answers
+- [x] Write Phase 3 instructions: write draft via subagent using bug-report.template.md
+- [x] Write Phase 4 instructions: self-review checklist — steps reproducible from neutral state, environment specified, expected vs actual distinct, severity assessed
+- [x] Write Phase 5 instructions: output mode prompt saving to `.product/bugs/{slug}/bug-report.md` (note the bugs/ subdirectory convention), with directory creation, index update, overwrite/version handling, and MCP failure fallback
 
 **Tests:**
-- [ ] pd-plugin:TS-10 - Bug report helps reconstruct reproduction steps: when user cannot provide exact steps, the skill helps reconstruct numbered steps from a neutral starting state
-- [ ] pd-plugin:TS-11 - Bug report includes code path references: Related Context section includes relevant code paths from the codebase
-- [ ] pd-plugin:TS-14 - Bug reports use separate directory: artifact is saved at `.product/bugs/{slug}/bug-report.md`
-- [ ] pd-plugin:TS-12 - Filesystem output creates directory and updates index
-- [ ] pd-plugin:TS-16 - Name collision prompts user to overwrite or create a versioned copy
+- [x] pd-plugin:TS-10 - Bug report helps reconstruct reproduction steps: when user cannot provide exact steps, the skill helps reconstruct numbered steps from a neutral starting state
+- [x] pd-plugin:TS-11 - Bug report includes code path references: Related Context section includes relevant code paths from the codebase
+- [x] pd-plugin:TS-14 - Bug reports use separate directory: artifact is saved at `.product/bugs/{slug}/bug-report.md`
+- [x] pd-plugin:TS-12 - Filesystem output creates directory and updates index
+- [x] pd-plugin:TS-16 - Name collision prompts user to overwrite or create a versioned copy
 
 **Details:**
 
