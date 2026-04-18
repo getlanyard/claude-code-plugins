@@ -85,26 +85,26 @@ The setup skill is the entry point for new projects. Its SKILL.md must be fully 
 
 ### Task 4: Product-spec skill
 
-- **Status:** Backlog
+- **Status:** Done
 - **Requirements:** pd-plugin:FR-02, pd-plugin:FR-05, pd-plugin:FR-07, pd-plugin:FR-08, pd-plugin:FR-09, pd-plugin:FR-10
 - **Files to read:** `pd/skills/setup/SKILL.md` (for guide.md reference pattern), `sddv2/skills/requirements/SKILL.md` (interview pattern reference), `pd/skills/setup/templates/index.template.md` (index format for filesystem output)
 - **Files to modify/create:** `pd/skills/product-spec/SKILL.md`, `pd/skills/product-spec/templates/product-spec.template.md`
 
 **Subtasks:**
-- [ ] Create `product-spec.template.md` with sections: Metadata table, Problem Statement, Target Users, Current State, Goals & Success Metrics, Proposed Solution, Competitive Landscape (optional), Scope & Boundaries, Risks & Open Questions, Appendix
-- [ ] Create `SKILL.md` with YAML frontmatter
-- [ ] Write Phase 1 instructions: read `.product/guide.md` if it exists; check available MCP tools for context; do NOT search codebase unless user requests it
-- [ ] Write Phase 2 instructions: interview about problem, target users, current state, goals/metrics, solution shape, competitive landscape, scope, risks; probe vague answers with follow-ups
-- [ ] Write Phase 3 instructions: write draft via subagent using product-spec.template.md
-- [ ] Write Phase 4 instructions: self-review checklist — all sections filled, goals measurable, scope bounded, no vague language; fix gaps or flag as open questions
-- [ ] Write Phase 5 instructions: output mode prompt (filesystem to `.product/{name}/product-spec.md`, chat, or MCP), including directory creation, index update, overwrite/version handling, and MCP failure fallback
+- [x] Create `product-spec.template.md` with sections: Metadata table, Problem Statement, Target Users, Current State, Goals & Success Metrics, Proposed Solution, Competitive Landscape (optional), Scope & Boundaries, Risks & Open Questions, Appendix
+- [x] Create `SKILL.md` with YAML frontmatter
+- [x] Write Phase 1 instructions: read `.product/guide.md` if it exists; check available MCP tools for context; do NOT search codebase unless user requests it
+- [x] Write Phase 2 instructions: interview about problem, target users, current state, goals/metrics, solution shape, competitive landscape, scope, risks; probe vague answers with follow-ups
+- [x] Write Phase 3 instructions: write draft via subagent using product-spec.template.md
+- [x] Write Phase 4 instructions: self-review checklist — all sections filled, goals measurable, scope bounded, no vague language; fix gaps or flag as open questions
+- [x] Write Phase 5 instructions: output mode prompt (filesystem to `.product/{name}/product-spec.md`, chat, or MCP), including directory creation, index update, overwrite/version handling, and MCP failure fallback
 
 **Tests:**
-- [ ] pd-plugin:TS-06 - Product spec interview probes vague answers: giving a vague answer like "we want it to be fast" results in a follow-up question and the final draft contains a measurable metric or flags it as an open question
-- [ ] pd-plugin:TS-07 - Product spec covers all sections: every template section is filled or explicitly flagged as an open question
-- [ ] pd-plugin:TS-12 - Filesystem output creates directory and updates index when saving to `.product/`
-- [ ] pd-plugin:TS-13 - Run pd:product-spec in Claude Desktop (or an environment without filesystem access) and verify the full draft is returned inline in the conversation without errors
-- [ ] pd-plugin:TS-16 - Name collision prompts user to overwrite or create a versioned copy
+- [x] pd-plugin:TS-06 - Product spec interview probes vague answers: giving a vague answer like "we want it to be fast" results in a follow-up question and the final draft contains a measurable metric or flags it as an open question
+- [x] pd-plugin:TS-07 - Product spec covers all sections: every template section is filled or explicitly flagged as an open question
+- [x] pd-plugin:TS-12 - Filesystem output creates directory and updates index when saving to `.product/`
+- [x] pd-plugin:TS-13 - Run pd:product-spec in Claude Desktop (or an environment without filesystem access) and verify the full draft is returned inline in the conversation without errors
+- [x] pd-plugin:TS-16 - Name collision prompts user to overwrite or create a versioned copy
 
 **Details:**
 
