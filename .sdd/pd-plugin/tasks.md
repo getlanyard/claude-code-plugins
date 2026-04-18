@@ -39,18 +39,18 @@ This task establishes the plugin's identity and directory structure so all subse
 
 ### Task 2: Index template for .product/ directory
 
-- **Status:** Backlog
+- **Status:** Done
 - **Requirements:** pd-plugin:FR-06
 - **Files to read:** `.sdd/pd-plugin/design.md` (Artifact directory layout + index template section)
 - **Files to modify/create:** `pd/skills/setup/templates/index.template.md`
 
 **Subtasks:**
-- [ ] Create `index.template.md` with columns for artifact type, name, date, and status
-- [ ] Include placeholder rows showing the expected entry format for product specs, feature specs, and bug reports
-- [ ] Add a header comment explaining that content skills append to this index when saving artifacts
+- [x] Create `index.template.md` with columns for artifact type, name, date, and status
+- [x] Include placeholder rows showing the expected entry format for product specs, feature specs, and bug reports
+- [x] Add a header comment explaining that content skills append to this index when saving artifacts
 
 **Tests:**
-- [ ] pd-plugin:TS-15 - Index template includes columns for type, name, date, and status so that each artifact can be tracked
+- [x] pd-plugin:TS-15 - Index template includes columns for type, name, date, and status so that each artifact can be tracked
 
 **Details:**
 
