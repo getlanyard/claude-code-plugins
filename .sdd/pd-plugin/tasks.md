@@ -176,26 +176,26 @@ The bug-report skill differs from product-spec and feature-spec in two ways: it 
 
 ### Task 7: README expansion and final polish
 
-- **Status:** Backlog
+- **Status:** Done
 - **Requirements:** pd-plugin:FR-01, pd-plugin:FR-02, pd-plugin:FR-03, pd-plugin:FR-04, pd-plugin:FR-05, pd-plugin:FR-06
 - **Files to read:** `pd/.claude-plugin/plugin.json`, `pd/skills/setup/SKILL.md`, `pd/skills/product-spec/SKILL.md`, `pd/skills/feature-spec/SKILL.md`, `pd/skills/bug-report/SKILL.md`
 - **Files to modify/create:** `pd/README.md`
 
 **Subtasks:**
-- [ ] Write Overview section explaining the plugin's purpose and audience
-- [ ] Write Skills section with a subsection for each skill (setup, product-spec, feature-spec, bug-report) including a one-line description and usage trigger
-- [ ] Write Output Modes section explaining filesystem, chat, and MCP destinations
-- [ ] Write Getting Started section with installation and first-run instructions
-- [ ] Write Directory Layout section showing the `.product/` structure
-- [ ] Verify all cross-references between README content and actual skill names, triggers, and directory paths
+- [x] Write Overview section explaining the plugin's purpose and audience
+- [x] Write Skills section with a subsection for each skill (setup, product-spec, feature-spec, bug-report) including a one-line description and usage trigger
+- [x] Write Output Modes section explaining filesystem, chat, and MCP destinations
+- [x] Write Getting Started section with installation and first-run instructions
+- [x] Write Directory Layout section showing the `.product/` structure
+- [x] Verify all cross-references between README content and actual skill names, triggers, and directory paths
 
 **Tests:**
-- [ ] pd-plugin:TS-03 - README accurately describes plugin: lists all four skills with one-line descriptions and usage triggers matching the actual SKILL.md files
-- [ ] Verify README accurately describes the filesystem output mode and .product/ directory layout (documentation accuracy for TS-12 behavior)
-- [ ] Verify README documents the chat-only output mode (documentation accuracy for TS-13 behavior)
-- [ ] Verify README accurately describes the bugs/ subdirectory convention (documentation accuracy for TS-14 behavior)
-- [ ] Verify README documents index.md tracking with type, name, date, and status columns (documentation accuracy for TS-15 behavior)
-- [ ] Verify README documents the name collision / overwrite-or-version prompt (documentation accuracy for TS-16 behavior)
+- [x] pd-plugin:TS-03 - README accurately describes plugin: lists all four skills with one-line descriptions and usage triggers matching the actual SKILL.md files
+- [x] Verify README accurately describes the filesystem output mode and .product/ directory layout (documentation accuracy for TS-12 behavior)
+- [x] Verify README documents the chat-only output mode (documentation accuracy for TS-13 behavior)
+- [x] Verify README accurately describes the bugs/ subdirectory convention (documentation accuracy for TS-14 behavior)
+- [x] Verify README documents index.md tracking with type, name, date, and status columns (documentation accuracy for TS-15 behavior)
+- [x] Verify README documents the name collision / overwrite-or-version prompt (documentation accuracy for TS-16 behavior)
 
 **Details:**
 
@@ -214,5 +214,5 @@ None.
 ```
 ST-01: pd/README.md stub
 - Reason: Task 1 creates a minimal placeholder; full content written in Task 7
-- Status: Pending (resolved by Task 7)
+- Status: Resolved
 ```
