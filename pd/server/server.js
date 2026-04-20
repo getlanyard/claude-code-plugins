@@ -1,7 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { createServer } from 'node:http';
-import { randomUUID } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
@@ -62,67 +61,27 @@ function buildServer() {
   return server;
 }
 
-// Per-session transport map (same pattern as mcp-sdd-server)
-const sessions = new Map();
-
-function readBody(req) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    req.on('data', c => chunks.push(c));
-    req.on('end', () => resolve(Buffer.concat(chunks).toString()));
-    req.on('error', reject);
-  });
-}
-
-function isInitialize(body) {
-  try {
-    const parsed = typeof body === 'string' ? JSON.parse(body) : body;
-    if (Array.isArray(parsed)) return parsed.some(m => m.method === 'initialize');
-    return parsed.method === 'initialize';
-  } catch { return false; }
-}
-
-function jsonRpcError(res, code, message) {
-  res.writeHead(400, { 'content-type': 'application/json' });
-  res.end(JSON.stringify({ jsonrpc: '2.0', error: { code, message }, id: null }));
-}
+// Stateless: each request gets a fresh server+transport pair.
+// No session persistence needed — prompts are static content.
+// This avoids "no valid session" errors when clients don't track session IDs.
 
 const http = createServer(async (req, res) => {
-  const sessionId = req.headers['mcp-session-id'];
-
-  if (req.method === 'POST') {
-    const raw = await readBody(req);
-    const body = raw ? JSON.parse(raw) : undefined;
-
-    if (sessionId && sessions.has(sessionId)) {
-      await sessions.get(sessionId).transport.handleRequest(req, res, body);
-    } else if (!sessionId && isInitialize(body)) {
-      const server = buildServer();
-      const transport = new StreamableHTTPServerTransport({
-        sessionIdGenerator: () => randomUUID(),
-        onsessioninitialized: (id) => {
-          sessions.set(id, { server, transport });
-          console.log(`session created: ${id} (${sessions.size} active)`);
-        },
-        onsessionclosed: (id) => {
-          sessions.delete(id);
-          console.log(`session closed: ${id} (${sessions.size} active)`);
-        },
-      });
-      await server.connect(transport);
-      await transport.handleRequest(req, res, body);
-    } else {
-      jsonRpcError(res, -32000, 'no valid session');
-    }
-  } else if (req.method === 'GET' || req.method === 'DELETE') {
-    if (sessionId && sessions.has(sessionId)) {
-      await sessions.get(sessionId).transport.handleRequest(req, res);
-    } else {
-      jsonRpcError(res, -32000, 'no valid session');
-    }
-  } else {
+  if (req.method !== 'POST') {
     res.writeHead(405).end();
+    return;
   }
+
+  const server = buildServer();
+  const transport = new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined, // stateless mode
+  });
+
+  await server.connect(transport);
+  await transport.handleRequest(req, res);
+
+  res.on('close', () => {
+    server.close().catch(() => {});
+  });
 });
 
 http.listen(PORT, HOST, () => {
