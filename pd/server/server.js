@@ -48,14 +48,24 @@ console.log(`loaded ${promptCache.size} skills from ${SKILLS_DIR}`);
 function buildServer() {
   const server = new McpServer(
     { name: 'pd-prompt-server', version: '0.1.0' },
-    { capabilities: { prompts: {} } },
+    { capabilities: { prompts: {}, tools: {} } },
   );
 
   for (const skill of skills) {
     const text = promptCache.get(skill.dir);
+
+    // Register as prompts (for clients that support MCP prompts)
     server.prompt(skill.name, skill.desc, () => ({
       messages: [{ role: 'user', content: { type: 'text', text } }],
     }));
+
+    // Register as tools (for clients like claude.ai that only surface tools)
+    server.tool(
+      skill.name,
+      `Load the ${skill.desc.toLowerCase()} skill. Call this tool, then follow the instructions it returns.`,
+      {},
+      () => ({ content: [{ type: 'text', text }] }),
+    );
   }
 
   return server;
