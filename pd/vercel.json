@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "cp -r ../skills ./skills && npm install",
-  "outputDirectory": ".",
+  "installCommand": "cd server && npm install",
   "functions": {
     "api/mcp.js": {
-      "includeFiles": "skills/**"
+      "includeFiles": "skills/**,server/skills.js"
     }
   },
   "rewrites": [
