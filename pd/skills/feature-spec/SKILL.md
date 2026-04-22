@@ -51,7 +51,7 @@ Once you have enough information, use the Task tool to launch a subagent that wr
 > Write the feature design spec for {feature name}.
 >
 > **Read:**
-> - Feature spec template: `{skill_directory}/templates/feature-spec.template.md`
+> - Feature spec template: `templates/feature-spec.template.md`
 >
 > **Context from discovery interview:**
 > {paste the collected answers here}

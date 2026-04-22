@@ -50,7 +50,7 @@ Once you have enough information, use the Task tool to launch a subagent that wr
 > Write the product design spec for {product name}.
 >
 > **Read:**
-> - Product spec template: `{skill_directory}/templates/product-spec.template.md`
+> - Product spec template: `templates/product-spec.template.md`
 >
 > **Context from discovery interview:**
 > {paste the collected answers here}

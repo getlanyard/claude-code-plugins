@@ -61,7 +61,7 @@ Use the Task tool to launch a subagent that writes `.product/guide.md`.
 > Write the product design guide at `.product/guide.md`.
 >
 > **Read:**
-> - Guide template: `{skill_directory}/templates/guide.template.md`
+> - Guide template: `templates/guide.template.md`
 >
 > **Interview answers:**
 > {paste the collected answers here}
@@ -71,7 +71,7 @@ Use the Task tool to launch a subagent that writes `.product/guide.md`.
 > - Fill in every section from the interview answers.
 > - For sections the user had no answer for, write: "Not configured — run `pd:setup` to update."
 > - If `.product/` does not exist, create the directory first.
-> - If `.product/index.md` does not exist, create it from `{skill_directory}/templates/index.template.md`.
+> - If `.product/index.md` does not exist, create it from `templates/index.template.md`.
 > - Save the file when done.
 
 ### Phase 4: Confirm

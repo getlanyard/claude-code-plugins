@@ -57,7 +57,7 @@ Once you have enough information, use the Task tool to launch a subagent that wr
 > Write the bug report for {title}.
 >
 > **Read:**
-> - Bug report template: `{skill_directory}/templates/bug-report.template.md`
+> - Bug report template: `templates/bug-report.template.md`
 >
 > **Context from discovery interview:**
 > {paste the collected answers here}
