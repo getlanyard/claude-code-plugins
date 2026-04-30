@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Create and refine design documents for features using the SDD methodology. Use this skill when designing, creating designs, or refining designs. Produces structured design documents with architecture, components, test scenarios, and quality standards. Does NOT include task breakdown - use the tasks skill for that.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Plan
@@ -78,20 +78,34 @@ You MUST use the Task tool to launch a subagent that writes the design. Do NOT w
 > - Follow the template structure exactly
 > - Sections marked "optional" or "if needed" can be omitted entirely if not applicable
 > - Do NOT add new sections that aren't in the template
-> - Leave the Task Breakdown, Dead Code Tracking, and Stub Tracking sections empty
+> - Leave the Task Breakdown section empty
+>
+> **Components:**
+> - Group as Modified, Added, or Used.
+> - Every component carries a Rationale that names the AC or FR it serves. If you cannot, cut the component or fold it into its caller.
+> - Plumbing components (their behaviour is only meaningful via a caller) must say so in the Rationale and name the AC that exercises them transitively. Do not invent a standalone scenario.
+> - Keep Details to 5–10 lines of pseudo-code or type signatures. No implementation.
+> - Do not write TS-XX, ITS-XX, or E2E-XX scenario blocks — they are removed from the template. AC live on requirements; components reference them in prose.
+> - Every AC from the specification must be named in at least one component's Rationale.
+>
+> **QA Feasibility:** For each QA-XX in the specification, confirm a stakeholder can run it against this design without white-box manipulation. If not, name the setup required and decide: automate it, narrow QA scope, or escalate.
+>
+> **Feasibility Review:** Resolve each Deferred / Non-Verifiable Requirement from the specification — drop, narrow, or escalate. Record the decision. Also list anything else that blocks the design: missing infrastructure, prerequisite features, decisions waiting on a human.
+>
+> **Instrumentation:** Only include when an NFR demands observability.
 >
 > **Process:**
 >
 > 1. **Map requirements to components** - Create a checklist of every FR and NFR from the specification. For each, identify which component(s) will address it. Every requirement MUST map to at least one component. If it cannot, document it in Feasibility Review with justification.
 >
 > 2. **Categorize components:**
->    - **Modified**: Existing component that needs changes. Document current behavior, what changes, dependants, and test scenarios (Given/When/Then)
->    - **Added**: New component. Document single responsibility, consumers, location, requirements satisfied, and test scenarios (Given/When/Then)
->    - **Used**: Existing component needed as-is. Document what it provides and which Modified/Added components depend on it
+>    - **Modified**: Existing component that needs changes. Document current behaviour, the delta, dependants, and a Rationale linking it to AC or FR.
+>    - **Added**: New component. Document single responsibility, consumers, location, and a Rationale linking it to AC or FR.
+>    - **Used**: Existing component needed as-is. Document what it provides, which Modified/Added components depend on it, and a one-line Rationale (name a reusable test fixture if one exists).
 >
 >    Keep components focused (single responsibility, minimal coupling, explicit dependencies). Define public interfaces and error handling. Avoid over-engineering.
 >
-> 3. **Write the design document** following the template exactly. Fill in every section except Task Breakdown, Dead Code Tracking, and Stub Tracking. For each component, include Requirements References linking to FR/NFR IDs and test scenarios in Given/When/Then format tracing to acceptance criteria. The **Then** clause must specify a concrete, observable assertion — what state to check, in what system, with what expected value. "Then: event is emitted" is too vague; "Then: a StorageEvent record is retrievable from the Kinesis stream with tenant_id=X and new_value_size=100" is testable. If the test cannot be verified without specific infrastructure (mock endpoint, fixture, wrapper), name that infrastructure in the scenario. **Keep the document concise** — component Details sections must be 5-10 lines of pseudo-code max, not full implementation code. Aim for under 300 lines total.
+> 3. **Write the design document** following the template exactly. Fill in every section except Task Breakdown. Each component's Rationale must name at least one AC or FR. Plumbing components state their transitive coverage explicitly — they name the AC that exercises them through a caller, and do not get their own scenario. **Keep the document concise** — component Details sections must be 5-10 lines of pseudo-code max, not full implementation code. Aim for under 300 lines total.
 >
 > 4. **API Design** (when the feature has public interfaces): Describe operations conceptually (what they do, inputs, outputs, errors). Define data shapes in prose or simple schemas. Do NOT include function implementations or language-specific syntax. No exceptions — detailed code belongs in the task breakdown, not the design.
 >
@@ -123,14 +137,14 @@ After the fix subagent completes, re-run Step 2 (review). Repeat Steps 2-3 until
 A complete design document must have:
 - **Link to specification** via the Linked Specification field
 - **Architecture overview** explaining current context and proposed changes
-- **Components defined** (Modified/Added) with requirements references and test scenarios
+- **Components defined** (Modified/Added/Used), each with a Rationale naming at least one AC or FR
+- **Every AC from the specification** named in at least one component's Rationale
+- **Deferred / Non-Verifiable FRs** from the specification each resolved in Feasibility Review
 - **Risks identified** with mitigation strategies
 - **No TBDs or ambiguities** in the final design
-- **QA feasibility analyzed** - white-box setup documented for each scenario
+- **QA feasibility analyzed** — white-box setup documented for each scenario
 
 Optional sections (include only if applicable):
-- Integration Test Scenarios (if multi-component interactions)
-- E2E Test Scenarios (if complete user workflows need testing)
 - Instrumentation (if NFRs require observability)
 
 ### Refining a Design

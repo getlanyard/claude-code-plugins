@@ -1,7 +1,7 @@
 ---
 name: implement
 description: Implement SDD features task-by-task following the design document. Use this skill when implementing features or auto-implementing designs. One subagent per task, review at the end. Use the tasks skill for task breakdown.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Implement
@@ -75,19 +75,21 @@ Do NOT pass the specification — the design already incorporates it.
 > **Project guidelines:** Use the `handbook` skill to read and follow project conventions.
 >
 > **Testing (read this carefully):**
-> - Before writing any test, explore the existing test suite to understand test patterns, fixtures, and helpers already in use. Use them. Do NOT build parallel mock infrastructure when integration test support already exists.
-> - Write the test FIRST. Run it. It MUST fail. If it passes immediately, your test is wrong — fix it before writing any implementation code.
-> - Every test must actually verify the behavior its name claims. A test called `emits_storage_event` that only checks a 204 status code is a lie — it must assert on the actual event. If you can delete the feature and the test still passes, the test is worthless.
+> - Before writing any test, explore the existing test suite for patterns, fixtures, and helpers. Reuse them. Do NOT build parallel mock infrastructure when integration test support already exists.
+> - For each AC listed in this task's `Satisfies:` field, write at least one test whose failure would mean the AC is unmet. Write it FIRST. Run it. It MUST fail. If it passes immediately, the test is wrong — fix it before writing any implementation code.
+> - Each test must assert on the AC's named observable — the system, artifact, and value the spec stated. A test whose Then paraphrases the When ("when reset is requested, then it was requested") is a tautology. Delete and replace.
+> - Do NOT write standalone tests for components that have no AC of their own (plumbing). They're covered transitively. If you feel a plumbing test is needed, the AC test isn't reaching the real path — fix the AC test instead.
 > - Use real code paths, not mocks, unless the dependency is truly external and unavailable in test. Mocks that return canned responses test nothing.
+> - You choose test count and boundary (unit/integration). The Tests bullet in the task lists AC IDs, not a fixed number of tests.
 > - After all tests pass, run the full test suite and include the output in your response. Do NOT claim "tests pass" without evidence.
 >
 > **Other rules:**
+> - Implement only what this task's AC require. A component's full design may not be reached until a later task — that's expected. Do not pre-build methods, branches, or error paths for AC owned by other tasks. If you find yourself adding code with no test in this task that exercises it, stop — it belongs in the task that needs it.
 > - One commit per task
 > - Check off completed subtask and test checkboxes in .sdd/{feature}/tasks.md, update status to "Done"
 > - Only add comments where logic isn't self-evident
-> - **NEVER** add SDD artifact references in code or tests (no FR-XXX, TS-XX, requirement IDs, scenario IDs)
-> - Track any dead code in the Dead Code Tracking section of .sdd/{feature}/tasks.md
-> - Track any stubs in the Stub Tracking section of .sdd/{feature}/tasks.md
+> - **NEVER** add SDD artifact references in code or tests (no FR-XXX, NFR-XXX, AC-XXX, REQ-XXX)
+> - Stubs (`skip`, `todo`, `pending`, empty test bodies, `assert True`) and dead code are forbidden. If a genuine external blocker forces one, note it in the task's Notes section and resolve before the final task.
 >
 > **Escalation:** If you need to understand code beyond what's provided, or the task is too large for your remaining context, STOP and report what you completed and what remains. Partial progress with a clear handoff is better than exhausting context.
 

@@ -1,7 +1,7 @@
 ---
 name: tasks
 description: Break down a design into implementation tasks. Use this skill when creating task breakdowns, populating the Task Breakdown section of a design document, or planning implementation phases. Ensures every requirement maps to tasks with test scenario references.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Tasks
@@ -54,15 +54,20 @@ You MUST use the Task tool to launch a subagent that writes the task breakdown. 
 > - Do NOT read the specification — the design already incorporates it
 >
 > **Follow the template structure exactly.** For each task:
-> - Order tasks by dependencies — each task must produce code that compiles and passes tests independently
-> - Each task must specify which requirements it fulfills using `{feature:REQ-ID}` format
-> - Each task must list exact file paths to read and modify/create (including test files)
-> - Each task must have implementation subtasks with checkboxes
-> - Each task must have test checkboxes referencing specific scenario IDs (TS-XX, ITS-XX, E2E-XX) from the design, with a description specific enough to write the test from — what to set up, what to call, what to assert on, and what existing test fixtures or infrastructure to use
-> - Each task must have a brief Details section (3-5 sentences, no code blocks) for key decisions and edge cases
-> - Testing happens WITH implementation, not after - do NOT create separate "add tests" tasks
-> - Every requirement must map to tasks (and vice versa)
-> - Do NOT group tasks into phases — tasks are a flat ordered list
+> - Decompose by **vertical AC slice**, not by component layer. A task delivers one or more AC end-to-end. Plumbing components arrive alongside the first AC that uses them.
+> - Each task must list the AC it satisfies in its `Satisfies:` field, plus the components it touches in `Components touched:`.
+> - Order tasks by AC dependency — each task must produce code that compiles and passes tests independently. Every task ends green.
+> - Each task lists exact file paths to read and modify/create (including test files).
+> - Each task has implementation subtasks with checkboxes.
+> - Each task has a single Tests bullet referencing AC IDs from `Satisfies:`. Do not enumerate one checkbox per AC; the implementer chooses test count and boundary under TDD.
+> - Each task has a brief Notes section (3–5 sentences, no code blocks) for key decisions, edge cases, and fixture pointers.
+> - Testing happens WITH implementation, not after — do NOT create separate "add tests" tasks.
+> - **No sub-AC tasks.** Don't split a single AC across tasks. If an AC is too big for one task's context budget, the AC is too coarse — escalate to spec.
+> - **No pure-plumbing tasks.** A task with no AC is a smell. The only exception is a contract change consumed by other code (e.g., trait signature update); flag it as a candidate for a separate prior PR via the prerequisite check below.
+> - **Vertical slicing means partial components are expected.** A component's design may be realised across multiple tasks — each task implements only what its AC need. The component is fully delivered by the final task that satisfies its last AC. This is partial implementation, not dead code.
+> - Every AC in the specification must appear in at least one task's `Satisfies:` field. Every Modified/Added component in the design must appear in at least one task's `Components touched:` field.
+> - Do NOT group tasks into phases — tasks are a flat ordered list.
+> - Do NOT use TS-XX, ITS-XX, or E2E-XX IDs — they no longer exist.
 > - **Prerequisite check:** If early tasks are independently useful changes (e.g., trait signature changes, infrastructure additions, module refactors) that the rest of the feature builds on, flag them: *"Tasks 1-3 look like independent prerequisite work that could be split into a separate change. Should they be?"* Let the user decide — but surface it.
 >
 > **Context budget:** Each task plus the files it references should fit comfortably in 30-40% of a context window. If a task requires reading many files, split it. When in doubt, err smaller — a subagent finishing early is fine; running out of context wastes everything.

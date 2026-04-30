@@ -14,179 +14,134 @@
 ## Architecture Overview
 
 ### Current Architecture Context
-- {How does this fit into existing system?}
+- {How this fits into the existing system.}
 
 ### Proposed Architecture
-- {Diagram or description}
-- {Key patterns and rationale}
-- {Sequence diagram if necessary}
+- {Diagram or description.}
+- {Key patterns and rationale.}
+- {Sequence diagram if it earns its place.}
 
 ### Technology Decisions
-- {Choices and justification}
+- {Choices and justification.}
 
 ### Quality Attributes
-- {Scalability approach}
-- {Maintainability considerations}
+- {Scalability approach.}
+- {Maintainability considerations.}
 
 ---
 
 ## API Design (optional)
-- {Public interface definitions}
-- {Data models and schemas}
-- {Error handling strategy}
-- {Versioning approach}
+- {Public interface definitions — operations, inputs, outputs, errors.}
+- {Data shapes in prose or simple schemas. No language syntax.}
+- {Versioning approach.}
 
 ---
 
-## Modified Components
+## Components
 
-### {Modified Component 1}
-**Change Description** {Short description of what it currently does and what it needs to do. Describe the delta}
+### Modified
 
-**Dependants** {Any dependants that need to be modified as a result}
+#### {Component name}
+- **Change:** {Current behaviour → new behaviour. The delta only.}
+- **Dependants:** {Callers that must change.}
+- **Kind:** {Function | Struct | Module | Crate | Database | ...}
+- **Details:** {5–10 lines of pseudo-code or type signatures.}
+- **Rationale:** {One short paragraph. Name the AC or FR this serves
+  and how this component contributes. If it's plumbing, say which AC
+  exercises it transitively.}
 
-**Kind** {Function | Struct | Module | Crate | Database etc}
+### Added
 
-**Details**
-> Brief pseudo-code or type signatures only (5-10 lines max). Do NOT include full implementation code.
+#### {Component name}
+- **Responsibility:** {One sentence.}
+- **Consumers:** {Who calls it.}
+- **Location:** {Path or module.}
+- **Kind:** {...}
+- **Details:** {5–10 lines max.}
+- **Rationale:** {One short paragraph linking it to AC or FR.}
 
-```
-{details}
-```
+### Used
 
-**Requirements References**
-- {feature-name:FR-001}: {Why this requirement necessitates this change}
-- {feature-name:NFR-001}: {Why this requirement necessitates this change}
+#### {Component name}
+- **Location:** {Path.}
+- **Provides:** {What we depend on.}
+- **Used by:** {Modified/Added components that lean on it.}
+- **Rationale:** {One line — why it's reached for here. Name a fixture
+  if there's a reusable test sink or helper.}
 
-**Test Scenarios**
-
-**TS-XX: {Scenario name}**
-- Given: {Initial state/context}
-- When: {Action performed}
-- Then: {Expected outcome}
-
----
-
-## Added Components
-
-### {Added Component 1}
-**Description** {Short description of what the new component should do}
-
-**Users** {Who/what will call/use this component?}
-
-**Kind** {Function | Struct | Module | Crate | Database etc}
-
-**Location** {Which file/class/module/crate will this new component be located in?}
-
-**Details**
-> Brief pseudo-code or type signatures only (5-10 lines max). Do NOT include full implementation code.
-
-```
-{details}
-```
-
-**Requirements References**
-- {feature-name:FR-001}: {Why this requirement necessitates this component}
-- {feature-name:NFR-001}: {Why this requirement necessitates this component}
-
-**Test Scenarios**
-
-**TS-XX: {Scenario name}**
-- Given: {Initial state/context}
-- When: {Action performed}
-- Then: {Expected outcome}
-
----
-
-## Used Components
-
-> Existing components required as-is for implementation. Document what each provides and why it's needed.
-
-### {Used Component 1}
-**Location** {Path to component}
-
-**Provides** {What functionality/interface this component offers that we depend on}
-
-**Used By** {Which Modified/Added components depend on this}
+> **Example:**
+>
+> #### PasswordResetService (Added)
+> - Responsibility: Orchestrates reset request and consume flows.
+> - Consumers: `routes/auth.ts`.
+> - Location: `src/auth/passwordReset.ts`.
+> - Kind: Module.
+> - Details:
+>     requestReset(email) -> 202
+>     consumeReset(token, newPassword) -> 200 | 410
+> - Rationale: Owns the end-to-end behaviour for FR-01 and FR-02.
+>   AC-01.1, AC-01.2, AC-02.1, and AC-02.2 are all asserted at this
+>   boundary — it's the only place the full flow is observable.
+>
+> #### ResetTokenStore (Added)
+> - Responsibility: Issues, looks up, and invalidates single-use tokens.
+> - Consumers: PasswordResetService.
+> - Location: `src/auth/resetTokenStore.ts`.
+> - Kind: Module.
+> - Details:
+>     issue(userId) -> token
+>     consume(token) -> userId | TokenExpired | TokenAlreadyUsed
+> - Rationale: Plumbing for FR-02. Round-trip storage is meaningless to
+>   assert in isolation — AC-02.1 and AC-02.2 cover it through the
+>   service.
 
 ---
 
-## Documentation Considerations
-- {Developer docs that need to be created/updated}
-- {API docs that need to be created/updated}
-- {Readme's docs that need to be created/updated}
-- {Any other documentation considerations?}
+## QA Feasibility
+
+- **QA-XX:** {Runnable as-is, or setup required.}
+
+---
+
+## Feasibility Review
+
+- {Deferred FR resolution or design blocker.}
+
+---
+
+## Risks and Dependencies
+
+- {Technical risks and mitigations.}
+- {External dependencies.}
+- {Assumptions worth recording.}
+
+---
+
+## Documentation
+
+- {Dev docs to write or update.}
+- {API docs to write or update.}
+- {READMEs to touch.}
 
 ---
 
 ## Instrumentation (optional)
 
-> Only include if there are NFRs requiring observability. Skip for typical features.
-
-- {Metric/log/trace to implement and which component}
-
----
-
-## Integration Test Scenarios (if needed)
-
-> Define scenarios that test interactions between multiple components. Each scenario should verify a complete user journey or system interaction.
-
-**ITS-XX: {Scenario name}**
-- Given: {Initial system state}
-- When: {User action or trigger}
-- Then: {Expected system behavior}
-- Components Involved: {List of components}
-
----
-
-## E2E Test Scenarios (if needed)
-
-> Define end-to-end scenarios that test complete user workflows through the entire system. Each scenario should simulate real user behavior from start to finish.
-
-**E2E-XX: {Scenario name}**
-- Given: {Initial user/system state}
-- When: {Complete user workflow}
-- Then: {Final expected state}
-- User Journey: {Steps in the journey}
-
----
-
-## Test Data
-- {Requirements and sources}
-
----
-
-## Test Feasibility
-- {Missing test infrastructure that should be built first}
-- {Missing test data that should be acquired first}
-
----
-
-## Risks and Dependencies
-- {Technical risks and mitigation}
-- {External dependencies}
-- {Assumptions and constraints}
-
----
-
-## Feasability Review
-- {Large missing feature that needs to be built first as separate iteration}
-- {Large missing infrastructure that needs to be available first as separate iteration}
+- {Metric/log/trace and the component that owns it.}
 
 ---
 
 ## Appendix
 
 ### Glossary
-- **Term 1:** Definition
-- **Term 2:** Definition
+- **Term:** Definition.
 
 ### References
-- {Link to related documents, research, or external specifications}
+- {Links.}
 
 ### Change History
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
-| 1.0 | YYYY-MM-DD | {Name} | Initial design |
+| 1.0 | YYYY-MM-DD | {Name} | Initial design. |
 
 ---

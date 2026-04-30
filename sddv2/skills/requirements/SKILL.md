@@ -1,7 +1,7 @@
 ---
 name: requirements
 description: Create and refine specifications for features using the SDD methodology. Use this skill when writing, creating, or refining specs and specifications. Conducts discovery interviews and produces structured specification documents.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Requirements
@@ -107,6 +107,19 @@ Once you have enough information to fill out every section unambiguously, use th
 > - Follow the template structure exactly
 > - Sections marked "optional" or "if needed" can be omitted entirely if not applicable
 > - Do NOT add new sections that aren't in the template
+>
+> **Acceptance Criteria:**
+> - Every FR has at least one numbered AC, or sits in Deferred / Non-Verifiable Requirements with a stated blocker.
+> - Name the system, the artifact, and the expected value in the Then clause. "users.password_hash row changes." Not "the password is updated."
+> - Make the observable something a test can read directly — a row, a response field, a log line, a queue message.
+> - Aim for 1–3 AC per FR. Stop when each remaining behaviour has its own observable.
+> - Reject tautologies. If the Then restates the When ("when we store X, then X is stored"), drop the AC — it's plumbing covered transitively by another AC.
+> - Reject white-box assertions. If the only observable lives inside a third party or past the public interface, move the FR to Deferred / Non-Verifiable and flag it for the stakeholder. Do not invent one.
+> - If "Failure/edge cases" describes something worth verifying, promote it to its own AC.
+>
+> **Non-Functional Requirements:** Only include NFRs when there are genuine, measurable quality constraints. Skip the section for typical features.
+>
+> **QA Plan:** Linear instructions a human or agent QA pass can follow. Cover the happy path and the most important failure paths only — not every AC. Trust the automated tests for breadth; QA validates the experience. Mark each scenario `Path: happy | failure`.
 >
 > Write the complete specification in one pass. Fill in every section fully. Save the document when done.
 
