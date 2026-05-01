@@ -1,7 +1,7 @@
 ---
 name: implement
 description: Implement SDD features task-by-task following the design document. Use this skill when implementing features or auto-implementing designs. One subagent per task, review at the end. Use the tasks skill for task breakdown.
-version: 0.2.0
+version: 0.2.1
 ---
 
 # Implement
@@ -81,6 +81,7 @@ Do NOT pass the specification — the design already incorporates it.
 > - Do NOT write standalone tests for components that have no AC of their own (plumbing). They're covered transitively. If you feel a plumbing test is needed, the AC test isn't reaching the real path — fix the AC test instead.
 > - Use real code paths, not mocks, unless the dependency is truly external and unavailable in test. Mocks that return canned responses test nothing.
 > - You choose test count and boundary (unit/integration). The Tests bullet in the task lists AC IDs, not a fixed number of tests.
+> - **Test code is production code.** Apply the same engineering standards: DRY, clear names, shared fixtures and helpers reused across tests, no copy-pasted setup. If the same arrange block appears in three tests, extract a helper. If two tests differ only in input data, parameterise. Tests are read more often than they're written.
 > - After all tests pass, run the full test suite and include the output in your response. Do NOT claim "tests pass" without evidence.
 >
 > **Other rules:**

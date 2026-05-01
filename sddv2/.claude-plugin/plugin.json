@@ -1,5 +1,5 @@
 {
   "name": "sddv2",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Spec Driven Development v2 - decomposed into focused skills: requirements, research, plan, tasks, implement, and review. Provides a structured workflow for specification, design, and implementation phases with automated reviews, test-driven development enforcement, and requirements traceability."
 }

@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Create and refine design documents for features using the SDD methodology. Use this skill when designing, creating designs, or refining designs. Produces structured design documents with architecture, components, test scenarios, and quality standards. Does NOT include task breakdown - use the tasks skill for that.
-version: 0.2.0
+version: 0.2.1
 ---
 
 # Plan
@@ -61,65 +61,82 @@ Your **GOAL** is to complete the design template for the feature, **excluding** 
 
 #### Process
 
-**Step 1: Write the design document**
+**Step 1: Build the Design Brief**
+
+Read `.sdd/{feature}/specification.md` and `.sdd/{FEATURE}/research.md` (if present). Distil into a compact brief that the writer subagent can work from without opening either source file. Keep the brief under ~80 lines.
+
+```
+## Design Brief
+
+**Problem:** {1 short paragraph from spec}
+
+**Functional Requirements:**
+- FR-01 ({title}): AC-01.1 {Given/When/Then summary}; AC-01.2 ...
+- FR-02 ({title}): AC-02.1 ...
+
+**Deferred / Non-Verifiable:**
+- FR-03 — Blocker: {reason}; Proposed: {drop/narrow/escalate}
+
+**NFRs:** {if any, with thresholds}
+
+**QA scenarios:** QA-01 (happy), QA-02 (failure: {short})
+
+**Research highlights (technical only):**
+- Existing pattern: {1 line}
+- Integration point: {1 line}
+- Constraint: {1 line}
+- Prior art: {1 line}
+```
+
+Skip research's Observe / Orient / Diverge / Evaluate narrative — only the synthesised technical findings belong in the brief.
+
+**Step 2: Write the design document**
 
 You MUST use the Task tool to launch a subagent that writes the design. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Write a design document for {FEATURE} at .sdd/{feature}/design.md.
+> Write the design document for {FEATURE} at `.sdd/{feature}/design.md`.
 >
-> **Read these files:**
-> - Specification: .sdd/{feature}/specification.md
-> - Research: `.sdd/{FEATURE}/research.md` (if it exists) — focus on the technical side: existing code patterns, integration points, available infrastructure, prior art, and constraints that affect the architecture. Use it to sanity-check your design approach.
-> - Design template: templates/design.template.md
+> **Read:**
+> - Design template: `templates/design.template.md`
 > - Project conventions: use the `handbook` skill
 >
-> **Template guidance:**
-> - Follow the template structure exactly
-> - Sections marked "optional" or "if needed" can be omitted entirely if not applicable
-> - Do NOT add new sections that aren't in the template
-> - Leave the Task Breakdown section empty
+> Do NOT read the specification or research — the brief below is your source of truth. Fall back to those files only if the brief is silent on something you need.
+>
+> **Design Brief:**
+> {paste brief from Step 1}
 >
 > **Components:**
 > - Group as Modified, Added, or Used.
-> - Every component carries a Rationale that names the AC or FR it serves. If you cannot, cut the component or fold it into its caller.
-> - Plumbing components (their behaviour is only meaningful via a caller) must say so in the Rationale and name the AC that exercises them transitively. Do not invent a standalone scenario.
-> - Keep Details to 5–10 lines of pseudo-code or type signatures. No implementation.
-> - Do not write TS-XX, ITS-XX, or E2E-XX scenario blocks — they are removed from the template. AC live on requirements; components reference them in prose.
-> - Every AC from the specification must be named in at least one component's Rationale.
+> - Every component carries a Rationale naming the AC or FR it serves. If you cannot, cut it or fold it into its caller.
+> - Plumbing components (behaviour only meaningful via a caller) say so in the Rationale and name the AC that exercises them transitively. No standalone scenario.
+> - Details: 5–10 lines of pseudo-code or type signatures. No implementation.
+> - No TS-XX, ITS-XX, or E2E-XX blocks. AC live on requirements; components reference them in prose.
+> - Every AC in the brief must appear in at least one component's Rationale.
 >
-> **QA Feasibility:** For each QA-XX in the specification, confirm a stakeholder can run it against this design without white-box manipulation. If not, name the setup required and decide: automate it, narrow QA scope, or escalate.
+> **API Design:** Operations conceptually (what they do, inputs, outputs, errors). Data shapes in prose. No language syntax.
 >
-> **Feasibility Review:** Resolve each Deferred / Non-Verifiable Requirement from the specification — drop, narrow, or escalate. Record the decision. Also list anything else that blocks the design: missing infrastructure, prerequisite features, decisions waiting on a human.
+> **QA Feasibility:** For each QA-XX, can the stakeholder run it without white-box manipulation? If not, name the setup and decide: automate, narrow, or escalate.
 >
-> **Instrumentation:** Only include when an NFR demands observability.
+> **Feasibility Review:** Resolve each Deferred FR — drop, narrow, or escalate. List any other design blocker.
 >
-> **Process:**
+> **Instrumentation:** Include only when an NFR demands observability.
 >
-> 1. **Map requirements to components** - Create a checklist of every FR and NFR from the specification. For each, identify which component(s) will address it. Every requirement MUST map to at least one component. If it cannot, document it in Feasibility Review with justification.
+> **Output rules:**
+> - Follow the template exactly. Skip optional sections that don't apply.
+> - Leave Task Breakdown empty (the `tasks` skill owns it).
+> - Aim under 300 lines total.
+> - Save the document. Never skip this.
 >
-> 2. **Categorize components:**
->    - **Modified**: Existing component that needs changes. Document current behaviour, the delta, dependants, and a Rationale linking it to AC or FR.
->    - **Added**: New component. Document single responsibility, consumers, location, and a Rationale linking it to AC or FR.
->    - **Used**: Existing component needed as-is. Document what it provides, which Modified/Added components depend on it, and a one-line Rationale (name a reusable test fixture if one exists).
+> **Codebase exploration:** Trust the brief's research highlights. Do NOT Explore unless the brief is silent on something load-bearing — and even then, cap at 3 targeted reads.
 >
->    Keep components focused (single responsibility, minimal coupling, explicit dependencies). Define public interfaces and error handling. Avoid over-engineering.
->
-> 3. **Write the design document** following the template exactly. Fill in every section except Task Breakdown. Each component's Rationale must name at least one AC or FR. Plumbing components state their transitive coverage explicitly — they name the AC that exercises them through a caller, and do not get their own scenario. **Keep the document concise** — component Details sections must be 5-10 lines of pseudo-code max, not full implementation code. Aim for under 300 lines total.
->
-> 4. **API Design** (when the feature has public interfaces): Describe operations conceptually (what they do, inputs, outputs, errors). Define data shapes in prose or simple schemas. Do NOT include function implementations or language-specific syntax. No exceptions — detailed code belongs in the task breakdown, not the design.
->
-> 5. **QA Feasibility Analysis** - For each QA scenario in the specification: can the user complete all steps with functionality in this design? If not, document white-box setup required (what manual manipulation, why, and whether scope should change).
->
-> 6. **Save the document.** Never skip this step.
->
-> **Escalation:** If the specification is too large or ambiguous to design fully, STOP and report what you completed and what needs clarification.
+> **Escalation:** If the brief is too ambiguous to design fully, STOP and report what you completed and what needs clarification.
 
-**Step 2: Review the design**
+**Step 3: Review the design**
 
 Use the `review` skill to perform a **Design Review** of the design at .sdd/{feature}/design.md.
 
-**Step 3: Fix issues (if any)**
+**Step 4: Fix issues (if any)**
 
 If the review finds P0 or P1 issues, use the Task tool to launch a subagent to fix them. Do NOT fix them yourself.
 
@@ -130,7 +147,7 @@ If the review finds P0 or P1 issues, use the Task tool to launch a subagent to f
 >
 > Save the document when done.
 
-After the fix subagent completes, re-run Step 2 (review). Repeat Steps 2-3 until the review passes.
+After the fix subagent completes, re-run Step 3 (review). Repeat Steps 3-4 until the review passes.
 
 #### Design Quality Checklist
 

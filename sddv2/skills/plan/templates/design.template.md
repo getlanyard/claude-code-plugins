@@ -69,32 +69,6 @@
 - **Rationale:** {One line — why it's reached for here. Name a fixture
   if there's a reusable test sink or helper.}
 
-> **Example:**
->
-> #### PasswordResetService (Added)
-> - Responsibility: Orchestrates reset request and consume flows.
-> - Consumers: `routes/auth.ts`.
-> - Location: `src/auth/passwordReset.ts`.
-> - Kind: Module.
-> - Details:
->     requestReset(email) -> 202
->     consumeReset(token, newPassword) -> 200 | 410
-> - Rationale: Owns the end-to-end behaviour for FR-01 and FR-02.
->   AC-01.1, AC-01.2, AC-02.1, and AC-02.2 are all asserted at this
->   boundary — it's the only place the full flow is observable.
->
-> #### ResetTokenStore (Added)
-> - Responsibility: Issues, looks up, and invalidates single-use tokens.
-> - Consumers: PasswordResetService.
-> - Location: `src/auth/resetTokenStore.ts`.
-> - Kind: Module.
-> - Details:
->     issue(userId) -> token
->     consume(token) -> userId | TokenExpired | TokenAlreadyUsed
-> - Rationale: Plumbing for FR-02. Round-trip storage is meaningless to
->   assert in isolation — AC-02.1 and AC-02.2 cover it through the
->   service.
-
 ---
 
 ## QA Feasibility

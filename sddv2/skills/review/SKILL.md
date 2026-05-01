@@ -1,7 +1,7 @@
 ---
 name: review
 description: Review specifications, designs, and implementations for SDD features. Use this skill when reviewing specs, designs, or implementations. Produces structured review reports with severity-categorized findings.
-version: 0.2.0
+version: 0.2.1
 ---
 
 # Review
@@ -155,10 +155,11 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > 4. Check implementation matches design contracts and interfaces by the final task. Mid-stream tasks may implement only the slice their AC need; missing methods or branches in earlier tasks are not gaps if a later task delivers them.
 > 5. For each AC in the specification, find at least one test whose failure would mean the AC is unmet. Read it. Verify it asserts on the named observable, not a paraphrase. A test that would pass if the implementation were deleted is a P0. Spot-check 2–3 AC by mentally deleting the satisfying implementation — if the test would still pass, P0.
 > 6. Search for stubs: `skip`, `todo`, `pending`, `pass` in test functions, placeholder assertions
-> 7. Search for dead code: unused imports, variables, functions, commented-out code
-> 8. Search for SDD leakage: `FR-`, `NFR-`, `AC-`, `REQ-` in code, comments, docstrings, or test names
-> 9. Verify project conventions (use `handbook` skill): error handling, logging, naming, test structure, commit format
-> 10. Run tests, linters, and build
+> 7. Test code quality: tests are held to the same standards as production code. Flag duplicated arrange blocks (extract a helper), copy-pasted assertions across tests that differ only in inputs (parameterise), inline fixtures that belong in shared helpers, unclear test names that don't state the behaviour under test, and ad-hoc mocks where a project fixture exists.
+> 8. Search for dead code: unused imports, variables, functions, commented-out code
+> 9. Search for SDD leakage: `FR-`, `NFR-`, `AC-`, `REQ-` in code, comments, docstrings, or test names
+> 10. Verify project conventions (use `handbook` skill): error handling, logging, naming, test structure, commit format
+> 11. Run tests, linters, and build
 >
 > Stubs/dead code: forbidden unless tracked in the tasks document with a clear reason.
 >
