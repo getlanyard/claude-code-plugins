@@ -1,7 +1,7 @@
 ---
 name: requirements
 description: Create and refine specifications for features using the SDD methodology. Use this skill when writing, creating, or refining specs and specifications. Conducts discovery interviews and produces structured specification documents.
-version: 0.2.0
+version: 0.3.0
 ---
 
 # Requirements
@@ -44,12 +44,20 @@ You **MUST** understand project guidelines by using the `handbook` skill
 
 Do this when a user asks to create a specification.
 
-1. **Create a feature branch** from main named `feature/<feature-name>` (e.g., `feature/user-authentication`)
-2. **Create the `.sdd/{FEATURE}/` folder** at the root of the project
-3. **Copy** `templates/specification.template.md` to `.sdd/{FEATURE}/specification.md` if it doesn't already exist
+**Roadmap check:** If the parent directory contains a `roadmap.md`, this
+spec is one deliverable from a roadmap. Confirm with the user which
+D-XX is being specified, read the deliverable's Value/Scope from the
+roadmap, and add a `**Linked Roadmap:** .sdd/{initiative}/roadmap.md
+(D-XX)` field to the specification. Update the deliverable's Spec
+status in the roadmap when this spec moves through Drafting → Approved
+→ Implemented.
+
+1. **Create a feature branch** from main named `feature/<feature-name>` (e.g., `feature/user-authentication`). For roadmap deliverables, name the branch `feature/<initiative>-<deliverable-slug>`.
+2. **Create the spec folder.** Standalone: `.sdd/{FEATURE}/`. Roadmap deliverable: `.sdd/{initiative}/{deliverable-slug}/`.
+3. **Copy** `templates/specification.template.md` to the new folder's `specification.md` if it doesn't already exist.
 4. **Maintain the index:**
    - If `.sdd/index.md` doesn't exist, create it from `templates/index.template.md`
-   - Add a row for the new feature (newest entries at top, ordered by date)
+   - Add a row for the new feature (newest entries at top, ordered by date). Roadmap deliverables nest under their initiative row.
    - Update the status as the feature progresses through Draft → Approved → Implemented
 
 ### Specifying

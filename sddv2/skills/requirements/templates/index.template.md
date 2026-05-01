@@ -1,7 +1,10 @@
 # SDD Index
 
-> Features ordered by creation date (newest first)
+> Initiatives and standalone features ordered by creation date (newest first).
+> Roadmap deliverables nest under their initiative row.
 
-| Date | Feature | Specification | Design | Status |
-|------|---------|---------------|--------|--------|
-| YYYY-MM-DD | {feature-name} | [spec]({feature-name}/specification.md) | [design]({feature-name}/design.md) | Draft \| Approved \| Implemented |
+| Date | Item | Type | Document | Status |
+|------|------|------|----------|--------|
+| YYYY-MM-DD | {initiative-name} | Roadmap | [roadmap]({initiative-name}/roadmap.md) | Draft \| Approved \| In Progress \| Complete |
+| YYYY-MM-DD | &nbsp;&nbsp;↳ {deliverable-slug} | Spec | [spec]({initiative-name}/{deliverable-slug}/specification.md) | Draft \| Approved \| Implemented |
+| YYYY-MM-DD | {feature-name} | Spec | [spec]({feature-name}/specification.md) | Draft \| Approved \| Implemented |

@@ -1,7 +1,7 @@
 ---
 name: research
 description: Collaboratively explore the codebase and the web to understand a feature's problem space. Use this skill when you need to investigate existing code, patterns, and integration points before designing. Works in short research cycles with the user rather than producing findings in isolation.
-version: 0.1.0
+version: 0.3.0
 ---
 
 # Research
@@ -133,6 +133,28 @@ The document should cover:
 ### Review with the user
 
 Present the research document. Since you built the understanding together, it should feel like a natural summary of the conversation. Ask if anything is missing or wrong. Iterate based on feedback.
+
+### Scope check: one spec or many?
+
+Before handing off to requirements, sense-check the scope of what
+research has uncovered. The downstream contract is one specification
+≈ one day of implementation work. If the synthesised direction
+clearly exceeds that — multiple distinct user/operator outcomes,
+multiple personas, multiple subsystems — STOP and recommend the
+`roadmap` skill before requirements. The roadmap breaks the
+initiative into vertical deliverables, each sized to one spec.
+
+Signals it's multi-spec:
+- The recommended direction needs more than one user-visible outcome
+  to feel complete.
+- "Prerequisites identified" lists work that itself ships value.
+- You find yourself naming "Phase 1 / Phase 2" or "MVP / next" inside
+  a single feature scope.
+
+Signals it's one spec:
+- One coherent user/operator outcome.
+- Prerequisites are mechanical (a small refactor, a config change),
+  not value-bearing on their own.
 
 ## Guidelines
 

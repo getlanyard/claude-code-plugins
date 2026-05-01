@@ -1,7 +1,7 @@
 ---
 name: express
 description: Run the full SDD workflow end-to-end after research is prepared. Chains requirements, plan, tasks, and implement without stopping unless user input is required. Use this skill when the user wants to go from research straight through to implementation in one shot.
-version: 0.1.0
+version: 0.3.0
 ---
 
 # Express
@@ -12,6 +12,7 @@ Run the full SDD workflow end-to-end. Assumes research has already been complete
 
 - Research must already exist at `.sdd/{FEATURE}/research.md`
 - If research does not exist, tell the user to run the `research` skill first and stop
+- **Roadmap check:** If a roadmap exists at `.sdd/{initiative}/roadmap.md` covering this work, refuse to run on the whole initiative. Ask the user which deliverable (D-XX) to express, then run express scoped to that single deliverable's spec folder. Express handles one feature at a time, never a sequence.
 
 ## Orchestrator Discipline
 

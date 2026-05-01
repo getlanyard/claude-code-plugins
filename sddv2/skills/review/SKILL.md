@@ -1,7 +1,7 @@
 ---
 name: review
 description: Review specifications, designs, and implementations for SDD features. Use this skill when reviewing specs, designs, or implementations. Produces structured review reports with severity-categorized findings.
-version: 0.2.1
+version: 0.3.0
 ---
 
 # Review
@@ -39,6 +39,31 @@ Identify the review type requested, then follow ONLY that type's section below. 
 ### Severity Levels
 
 All findings use: **P0** (explicit violation of stated requirement/guideline/contract), **P1** (spirit not met), **P2** (ambiguous/unclear), **P3** (gap worth noting). Report grouped by severity, P0 first. Recommend rejection if any P0.
+
+---
+
+### Roadmap Review
+
+**Subagent prompt:**
+> Review the roadmap for {INITIATIVE}.
+>
+> **Read these files:**
+> - Roadmap: `.sdd/{initiative}/roadmap.md`
+> - Research: `.sdd/{initiative}/research.md`
+> - Project conventions: use the `handbook` skill
+>
+> **Check for:**
+> - Every deliverable is a vertical slice — ships an end-to-end user/operator outcome on its own. Flag any deliverable that's a layer ("build the API"), a tech component ("set up the queue"), or a phase ("Phase 1").
+> - Every deliverable's Value field names a specific user/operator and what they can do after that they couldn't before. Flag generic value statements ("improves the system", "enables future work").
+> - Every deliverable fits one spec (~1 day). Flag any that look multi-day or multi-subsystem — these need splitting along a scope axis.
+> - Scope (out) is present and load-bearing. Flag deliverables that don't state what's deliberately excluded.
+> - Most deliverables are standalone. If every deliverable depends on D-01, D-01 is plumbing — flag for reshape.
+> - Sequencing rationale explains *why* this order, not just lists the order. Flag missing or trivial rationale.
+> - Strategy is a spine, not a design. Flag strategy sections that prescribe components, libraries, or technical patterns.
+> - No leakage of research narrative (Observe/Orient/Diverge/Evaluate prose) — the roadmap is a forward plan, not a synthesis.
+> - Roadmap is concise (under 200 lines). Flag if longer.
+>
+> **Severity:** P0=explicit violation, P1=implied discrepancy, P2=ambiguity, P3=consideration. Group by severity, P0 first. Reject if any P0.
 
 ---
 
