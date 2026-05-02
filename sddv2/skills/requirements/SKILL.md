@@ -1,7 +1,7 @@
 ---
 name: requirements
 description: Create and refine specifications for features using the SDD methodology. Use this skill when writing, creating, or refining specs and specifications. Conducts discovery interviews and produces structured specification documents.
-version: 0.3.1
+version: 0.3.2
 ---
 
 # Requirements
@@ -127,7 +127,7 @@ Once you have enough information to fill out every section unambiguously, use th
 > - Reject white-box assertions. If the only observable lives inside a third party or past the public interface, move the FR to Deferred / Non-Verifiable and flag it for the stakeholder. Do not invent one.
 > - If "Failure/edge cases" describes something worth verifying, promote it to its own AC.
 >
-> **Non-Functional Requirements:** Only include NFRs when there are genuine, measurable quality constraints. Skip the section for typical features.
+> **Non-Functional Requirements:** Only include NFRs when there are genuine, measurable quality constraints. Skip the section for typical features. NFRs are not subject to AC, TDD, or tautology checks — they state a measurable Target and a Verification mode (`app-instrumented`, `platform-observed`, or `architectural-only`). App-instrumented NFRs additionally name the metric and where it's read. They feed the design's Architecture and Instrumentation sections, never the test layer.
 >
 > **QA Plan:** Linear instructions a human or agent QA pass can follow. Cover the happy path and the most important failure paths only — not every AC. Trust the automated tests for breadth; QA validates the experience. Mark each scenario `Path: happy | failure`.
 >

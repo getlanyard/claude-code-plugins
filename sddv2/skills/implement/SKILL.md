@@ -1,7 +1,7 @@
 ---
 name: implement
 description: Implement SDD features task-by-task following the design document. Use this skill when implementing features or auto-implementing designs. One subagent per task, review at the end. Use the tasks skill for task breakdown.
-version: 0.2.2
+version: 0.2.3
 ---
 
 # Implement
@@ -76,6 +76,7 @@ Do NOT pass the specification — the design already incorporates it.
 >
 > **Testing (read this carefully):**
 > - **Scope of TDD:** application business logic and reusable IaC modules. Provisioning configs (root modules, env-specific stacks) and imperative scripts (migrations, runbooks) may be created and linted in a task, but NEVER executed during implementation. Their execution mutates real state and belongs to the user.
+> - **NFRs are exempt from TDD.** Architectural choices satisfy them; instrumentation observes them where possible. If a task implements an app-instrumented NFR, add the named metric or log; do not write a test asserting the threshold. Platform-observed and architectural-only NFRs need no code.
 > - If an AC can only be verified after such execution (e.g., a queue must exist for the feature to receive messages), implement and lint the artefact, then pause and ask the user to apply or run it. Resume verification once they confirm.
 > - Before writing any test, explore the existing test suite for patterns, fixtures, and helpers. Reuse them. Do NOT build parallel mock infrastructure when integration test support already exists.
 > - For each AC listed in this task's `Satisfies:` field, write at least one test whose failure would mean the AC is unmet. Write it FIRST. Run it. It MUST fail. If it passes immediately, the test is wrong — fix it before writing any implementation code.

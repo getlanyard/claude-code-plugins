@@ -84,7 +84,9 @@
 ## Non-Functional Requirements (optional)
 
 **NFR-XX: {Requirement Title}**
-- {Measurable quality attribute with specific threshold}
+- **Target:** {measurable threshold, e.g., p99 latency < 200ms at 1k rps}
+- **Verification:** app-instrumented | platform-observed | architectural-only
+- **Observable (if app-instrumented):** {metric name and where to read it}
 
 ---
 

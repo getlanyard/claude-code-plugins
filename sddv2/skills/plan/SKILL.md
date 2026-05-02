@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Create and refine design documents for features using the SDD methodology. Use this skill when designing, creating designs, or refining designs. Produces structured design documents with architecture, components, test scenarios, and quality standards. Does NOT include task breakdown - use the tasks skill for that.
-version: 0.2.3
+version: 0.2.4
 ---
 
 # Plan
@@ -121,6 +121,7 @@ You MUST use the Task tool to launch a subagent that writes the design. Do NOT w
 > - Details: 5–10 lines of pseudo-code or type signatures. No implementation.
 > - No TS-XX, ITS-XX, or E2E-XX blocks. AC live on requirements; components reference them in prose.
 > - Every AC in the brief must appear in at least one component's Rationale.
+> - NFRs map to architectural choices and instrumentation, not to component Rationales. Do not invent AC for NFRs. App-instrumented NFRs drive entries in the Instrumentation section, naming the metric and the component that emits it. Platform-observed and architectural-only NFRs are recorded in Architecture or Risks but get no code.
 >
 > **API Design:** Operations conceptually (what they do, inputs, outputs, errors). Data shapes in prose. No language syntax.
 >

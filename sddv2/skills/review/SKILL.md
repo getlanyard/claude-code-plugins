@@ -1,7 +1,7 @@
 ---
 name: review
 description: Review specifications, designs, and implementations for SDD features. Use this skill when reviewing specs, designs, or implementations. Produces structured review reports with severity-categorized findings.
-version: 0.3.2
+version: 0.3.3
 ---
 
 # Review
@@ -96,6 +96,12 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > - Flag white-box AC — observables that require reaching past the public interface or into a third party. These belong in Deferred, not in active FRs.
 > - Failure/edge cases prose that describes verifiable behaviour should be promoted to its own AC. Flag any.
 >
+> **NFR checks:**
+> - Each NFR has a measurable Target (specific threshold, not "fast" or "scalable") and a Verification mode (`app-instrumented`, `platform-observed`, or `architectural-only`). Flag any missing either.
+> - App-instrumented NFRs additionally name the Observable (metric and where it's read). Flag any that don't.
+> - NFRs are not subject to AC checks. Do not flag them for missing AC.
+> - Flag NFRs that prescribe implementation ("must use Redis"), invent Verification modes, or claim app-instrumented Verification for something inherently platform-observable.
+>
 > **Severity:** P0=explicit violation, P1=implied discrepancy, P2=ambiguity, P3=consideration. Group by severity, P0 first. Reject if any P0.
 
 ---
@@ -129,6 +135,11 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > - Plumbing components state their transitive coverage explicitly — they name the AC that exercises them through a caller. Flag components whose Rationale tries to assert standalone behaviour that just restates their implementation.
 > - Deferred / Non-Verifiable FRs from the specification each have a resolution in the Feasibility Review section (drop, narrow, or escalate). Flag any left dangling.
 > - No TS-XX / ITS-XX / E2E-XX scenario blocks in the design. If present, the design is on the old template — flag for migration.
+>
+> **NFR coverage checks:**
+> - Each app-instrumented NFR from the spec has a corresponding Instrumentation entry naming the metric and the component that emits it. Flag any uncovered.
+> - Platform-observed NFRs are noted in Architecture or Risks, not assigned to a component, and not in Instrumentation. Flag misplacement.
+> - Architectural-only NFRs are explained in Architecture (which choice satisfies them) without code or instrumentation. Flag if the design quietly invents tests or metrics for them.
 >
 > **Severity:** P0=explicit violation, P1=implied discrepancy, P2=ambiguity, P3=consideration. Group by severity, P0 first. Reject if any P0.
 
@@ -180,7 +191,7 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > 2. Run `git diff main...HEAD` to understand scope
 > 3. Verify all design tasks are represented in the diff
 > 4. Check implementation matches design contracts and interfaces by the final task. Mid-stream tasks may implement only the slice their AC need; missing methods or branches in earlier tasks are not gaps if a later task delivers them.
-> 5. For each AC in the specification, find at least one test whose failure would mean the AC is unmet. Read it. Verify it asserts on the named observable, not a paraphrase. A test that would pass if the implementation were deleted is a P0. Spot-check 2–3 AC by mentally deleting the satisfying implementation — if the test would still pass, P0.
+> 5. For each AC in the specification, find at least one test whose failure would mean the AC is unmet. Read it. Verify it asserts on the named observable, not a paraphrase. A test that would pass if the implementation were deleted is a P0. Spot-check 2–3 AC by mentally deleting the satisfying implementation — if the test would still pass, P0. **Do not expect tests for NFRs.** For each app-instrumented NFR, confirm the named metric/log is present in the diff. Platform-observed and architectural-only NFRs need no diff evidence.
 > 6. Search for stubs: `skip`, `todo`, `pending`, `pass` in test functions, placeholder assertions
 > 7. Test code quality: tests are held to the same standards as production code. Flag duplicated arrange blocks (extract a helper), copy-pasted assertions across tests that differ only in inputs (parameterise), inline fixtures that belong in shared helpers, unclear test names that don't state the behaviour under test, and ad-hoc mocks where a project fixture exists.
 > 8. Provisioning configs and imperative scripts (root IaC modules, env stacks, migrations, runbooks) created in a task should be linted and validated, not executed. If the diff shows an AC test passing against an applied environment, confirm via tasks.md or commit messages that the user performed the apply/run — not the implement subagent. Reusable IaC modules ARE expected to have AC tests via plan-time or policy assertions.
