@@ -64,7 +64,7 @@ Before launching, prepare the subagent's context:
 
 Do NOT pass the specification — the design already incorporates it.
 
-> Implement task {N} for {FEATURE}.
+> Implement task {N} for {feature}.
 >
 > **Task:**
 > {paste the single task here — subtasks, tests, details, file lists}
@@ -108,7 +108,7 @@ After all tasks are complete, use the `review` skill to perform an **Implementat
 
 If the review finds P0 or P1 issues, use the Task tool to launch a fix subagent:
 
-> Fix the following issues in the implementation for {FEATURE}:
+> Fix the following issues in the implementation for {feature}:
 >
 > {paste review findings here}
 >

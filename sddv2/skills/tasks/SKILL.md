@@ -45,7 +45,7 @@ Your **GOAL** is to create a task breakdown document at .sdd/{feature}/tasks.md 
 You MUST use the Task tool to launch a subagent that writes the task breakdown. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Create the task breakdown for {FEATURE} at .sdd/{feature}/tasks.md.
+> Create the task breakdown for {feature} at .sdd/{feature}/tasks.md.
 >
 > **Read these files:**
 > - Design: .sdd/{feature}/design.md

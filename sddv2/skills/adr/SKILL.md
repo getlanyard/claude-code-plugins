@@ -1,7 +1,7 @@
 ---
 name: adr
 description: Write an Architecture Decision Record after implementation, before merge. Captures key technical decisions from the SDD workflow so future readers understand what was decided, why, and when to revisit. Only use when meaningful alternatives were considered.
-version: 0.1.0
+version: 0.1.1
 ---
 
 # ADR
@@ -28,7 +28,7 @@ Do NOT write an ADR for:
 
 ### Project Structure and Paths
 
-ADRs live alongside the feature's SDD artifacts in `.sdd/{feature}/`.
+ADRs live alongside the feature's SDD artifacts in `.sdd/{feature}/` (or `.sdd/{initiative}/{deliverable-slug}/` for roadmap deliverables).
 
 ### ADR Numbering
 
@@ -38,7 +38,7 @@ If the project maintains a numbered ADR index (e.g., `docs/adr/`), follow that c
 
 ### Step 1: Identify decisions worth recording
 
-Read the research document at `.sdd/{FEATURE}/research.md` and the design at `.sdd/{FEATURE}/design.md`. Look for:
+Read the design at `.sdd/{feature}/design.md`. Read research at `.sdd/{feature}/research.md` if it exists — for roadmap deliverables it has been retired by the roadmap step, so fall back to `.sdd/{initiative}/roadmap.md` for context. Look for:
 
 - Places where alternatives were considered and one was chosen over others
 - Technology or infrastructure choices with tradeoffs
@@ -52,11 +52,11 @@ If nothing qualifies, tell the user and skip the ADR.
 Use the Task tool to launch a subagent.
 
 **Subagent prompt:**
-> Write an ADR for {FEATURE} at .sdd/{feature}/adr.md.
+> Write an ADR for {feature} at `.sdd/{feature}/adr.md`.
 >
 > **Read these files:**
-> - Research: `.sdd/{FEATURE}/research.md`
-> - Design: `.sdd/{FEATURE}/design.md`
+> - Design: `.sdd/{feature}/design.md`
+> - Research: `.sdd/{feature}/research.md` if it exists; otherwise `.sdd/{initiative}/roadmap.md` (for roadmap deliverables)
 > - ADR template: templates/adr.template.md
 >
 > **Follow the template structure.** For each section:

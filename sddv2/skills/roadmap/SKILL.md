@@ -1,7 +1,7 @@
 ---
 name: roadmap
 description: Break a too-large initiative into a sequence of vertical deliverables, each sized to one spec. Use this skill when research reveals more work than a single specification can hold, or when the user knows up-front the work is multi-spec. Produces a roadmap document that drives subsequent requirements/plan/tasks/implement loops, one deliverable at a time.
-version: 0.2.0
+version: 0.2.1
 ---
 
 # Roadmap
@@ -166,8 +166,10 @@ subagent to fix them. Do NOT fix them yourself.
 
 **Subagent prompt:**
 > Fix the following issues in the roadmap at
-> `.sdd/{initiative}/roadmap.md`, using the research at
-> `.sdd/{initiative}/research.md` as reference:
+> `.sdd/{initiative}/roadmap.md`. If `.sdd/{initiative}/research.md`
+> still exists (pre-approval refinement), use it as reference;
+> otherwise work from the roadmap alone — research has already been
+> retired.
 >
 > {paste review findings here}
 >

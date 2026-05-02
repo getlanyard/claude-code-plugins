@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Create and refine design documents for features using the SDD methodology. Use this skill when designing, creating designs, or refining designs. Produces structured design documents with architecture, components, test scenarios, and quality standards. Does NOT include task breakdown - use the tasks skill for that.
-version: 0.2.4
+version: 0.2.5
 ---
 
 # Plan
@@ -40,16 +40,13 @@ Load relevant skills and apply their mindset and practices throughout specificat
 
 Do this when a user asks to create a design.
 
-You MUST create the required document in the relevant feature specific folder in the `.sdd/` folder at the root of the project.
-
-**Maintain the index:**
-1. If `.sdd/index.md` doesn't exist, create it from the requirements skill's `templates/index.template.md`
-2. Add a row for the new feature (newest entries at top, ordered by date)
-3. Update the status as the feature progresses through Draft → Approved → Implemented
+You MUST create the required document in the relevant feature-specific folder in the `.sdd/` folder at the root of the project.
 
 **Example:**
 
 **If** the user asks to create a **design** for user authentication **then** copy `templates/design.template.md` to `.sdd/user-authentication/design.md` if it doesn't already exist.
+
+The `.sdd/index.md` is owned by the `requirements` and `roadmap` skills — do not modify it from `plan`.
 
 ### Designing
 
@@ -103,7 +100,7 @@ Skip research's Observe / Orient / Diverge / Evaluate narrative — only the syn
 You MUST use the Task tool to launch a subagent that writes the design. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Write the design document for {FEATURE} at `.sdd/{feature}/design.md`.
+> Write the design document for {feature} at `.sdd/{feature}/design.md`.
 >
 > **Read:**
 > - Design template: `templates/design.template.md`
@@ -150,7 +147,7 @@ Use the `review` skill to perform a **Design Review** of the design at .sdd/{fea
 If the review finds P0 or P1 issues, use the Task tool to launch a subagent to fix them. Do NOT fix them yourself.
 
 **Subagent prompt:**
-> Fix the following issues in the design at .sdd/{feature}/design.md, using the specification at .sdd/{feature}/specification.md as reference:
+> Fix the following issues in the design at `.sdd/{feature}/design.md`, using the specification at `.sdd/{feature}/specification.md` as reference. Research at `.sdd/{feature}/research.md` may also exist; for roadmap deliverables it has been retired and should not be sought.
 >
 > {paste review findings here}
 >

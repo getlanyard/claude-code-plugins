@@ -3,6 +3,7 @@
 **Version:** 1.0
 **Date:** YYYY-MM-DD
 **Status:** Draft | Under Review | Approved | Implemented
+**Linked Roadmap:** `.sdd/{initiative}/roadmap.md` (D-XX) — *omit for standalone features*
 
 ---
 

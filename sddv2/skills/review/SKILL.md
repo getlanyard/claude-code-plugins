@@ -1,7 +1,7 @@
 ---
 name: review
 description: Review specifications, designs, and implementations for SDD features. Use this skill when reviewing specs, designs, or implementations. Produces structured review reports with severity-categorized findings.
-version: 0.3.3
+version: 0.3.4
 ---
 
 # Review
@@ -49,7 +49,7 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 >
 > **Read these files:**
 > - Roadmap: `.sdd/{initiative}/roadmap.md`
-> - Research: `.sdd/{initiative}/research.md`
+> - Research: `.sdd/{initiative}/research.md` (if it still exists — retired after roadmap approval)
 > - Project conventions: use the `handbook` skill
 >
 > **Check for:**
@@ -72,11 +72,11 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 ### Specification Review
 
 **Subagent prompt:**
-> Review the specification for {FEATURE}.
+> Review the specification for {feature}.
 >
 > **Read these files:**
 > - Specification: .sdd/{feature}/specification.md
-> - Research: `.sdd/{FEATURE}/research.md` (if it exists)
+> - Research: `.sdd/{feature}/research.md` (if it exists)
 > - Project conventions: use the `handbook` skill
 >
 > **Check for:**
@@ -109,12 +109,12 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 ### Design Review
 
 **Subagent prompt:**
-> Review the design for {FEATURE}.
+> Review the design for {feature}.
 >
 > **Read these files:**
 > - Specification: .sdd/{feature}/specification.md
 > - Design: .sdd/{feature}/design.md
-> - Research: `.sdd/{FEATURE}/research.md` (if it exists)
+> - Research: `.sdd/{feature}/research.md` (if it exists)
 > - Project conventions: use the `handbook` skill
 >
 > **Check for:**
@@ -148,7 +148,7 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 ### Task Breakdown Review
 
 **Subagent prompt:**
-> Review the task breakdown for {FEATURE}.
+> Review the task breakdown for {feature}.
 >
 > **Read these files:**
 > - Design: .sdd/{feature}/design.md
@@ -179,12 +179,12 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 ### Implementation Review
 
 **Subagent prompt:**
-> Review the implementation of {FEATURE}.
+> Review the implementation of {feature}.
 >
 > **Read these files:**
-> - Tasks: .sdd/{feature}/tasks.md
-> - Design: .sdd/{feature}/design.md
-> - Do NOT read the specification — the design already incorporates it
+> - Tasks: `.sdd/{feature}/tasks.md`
+> - Design: `.sdd/{feature}/design.md`
+> - Specification: `.sdd/{feature}/specification.md` (needed for AC coverage check below)
 >
 > **Steps:**
 > 1. Read .sdd/{feature}/specification.md and list every AC. Confirm each appears in tasks.md's `Satisfies:` fields. Any AC not delivered is a P0.

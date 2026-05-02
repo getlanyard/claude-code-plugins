@@ -1,7 +1,7 @@
 ---
 name: requirements
 description: Create and refine specifications for features using the SDD methodology. Use this skill when writing, creating, or refining specs and specifications. Conducts discovery interviews and produces structured specification documents.
-version: 0.3.2
+version: 0.3.3
 ---
 
 # Requirements
@@ -46,14 +46,14 @@ Do this when a user asks to create a specification.
 
 **Roadmap check:** If the parent directory contains a `roadmap.md`, this
 spec is one deliverable from a roadmap. Confirm with the user which
-D-XX is being specified, read the deliverable's Value/Scope from the
-roadmap, and add a `**Linked Roadmap:** .sdd/{initiative}/roadmap.md
-(D-XX)` field to the specification. Update the deliverable's Spec
-status in the roadmap when this spec moves through Drafting → Approved
-→ Implemented.
+D-XX is being specified, read the deliverable's Outcome, In scope, and
+Out of scope fields from the roadmap, and add a `**Linked Roadmap:**
+.sdd/{initiative}/roadmap.md (D-XX)` field to the specification.
+Update the deliverable's Spec status in the roadmap when this spec
+moves through Drafting → Approved → Implemented.
 
 1. **Create a feature branch** from main named `feature/<feature-name>` (e.g., `feature/user-authentication`). For roadmap deliverables, name the branch `feature/<initiative>-<deliverable-slug>`.
-2. **Create the spec folder.** Standalone: `.sdd/{FEATURE}/`. Roadmap deliverable: `.sdd/{initiative}/{deliverable-slug}/`.
+2. **Create the spec folder.** Standalone: `.sdd/{feature}/`. Roadmap deliverable: `.sdd/{initiative}/{deliverable-slug}/`.
 3. **Copy** `templates/specification.template.md` to the new folder's `specification.md` if it doesn't already exist.
 4. **Maintain the index:**
    - If `.sdd/index.md` doesn't exist, create it from `templates/index.template.md`
@@ -73,13 +73,13 @@ Your **GOAL** is to complete all parts of the specification template for the fea
 
 #### Process
 
-**Phase 1: Read existing context**
+**Step 1: Read existing context**
 
-For a **standalone feature**, check if `.sdd/{FEATURE}/research.md` exists. If it does, read it — but extract only what helps write behavioral requirements: what users/operators need, what the system must do and why, constraints that shape scope (e.g., "identity unavailable on gRPC path"), and evidence for what's feasible. Skip technical approaches, architecture, data models, and code patterns — those inform the design, not the spec.
+For a **standalone feature**, check if `.sdd/{feature}/research.md` exists. If it does, read it — but extract only what helps write behavioral requirements: what users/operators need, what the system must do and why, constraints that shape scope (e.g., "identity unavailable on gRPC path"), and evidence for what's feasible. Skip technical approaches, architecture, data models, and code patterns — those inform the design, not the spec.
 
 For a **roadmap deliverable**, research has been retired by the roadmap step. Read the deliverable's entry in `.sdd/{initiative}/roadmap.md` — the Outcome, In/Out scope, and Depends-on fields define the bounds. The roadmap's Problem and Motivation sections give the broader context. This is sufficient; do not seek out a research file that no longer exists.
 
-**Phase 2: Discovery Interview**
+**Step 2: Discovery Interview**
 
 Interview the user about their idea or brief. If research exists, you'll already have context — focus the interview on gaps the research didn't cover. If no research exists, start from scratch.
 
@@ -99,16 +99,16 @@ Keep asking questions until you can unambiguously fill out every section of the 
 
 **NFRs are optional** - Only include non-functional requirements when there are genuine, measurable quality constraints (e.g., specific latency targets, compliance requirements). Most features don't need them.
 
-**Phase 3: Write the Specification**
+**Step 3: Write the Specification**
 
 Once you have enough information to fill out every section unambiguously, use the Task tool to launch a subagent that writes the specification. Do NOT write it yourself.
 
 **Subagent prompt:**
-> Write the specification for {FEATURE} at .sdd/{feature}/specification.md.
+> Write the specification for {feature} at .sdd/{feature}/specification.md.
 >
 > **Read:**
 > - Specification template: templates/specification.template.md
-> - Research findings: `.sdd/{FEATURE}/research.md` (if it exists)
+> - Research findings: `.sdd/{feature}/research.md` (if it exists)
 >
 > **Context from discovery interview:**
 > {paste the interview findings here}
@@ -133,11 +133,11 @@ Once you have enough information to fill out every section unambiguously, use th
 >
 > Write the complete specification in one pass. Fill in every section fully. Save the document when done.
 
-**Phase 4: Review the Specification**
+**Step 4: Review the Specification**
 
 Use the `review` skill to perform a **Specification Review** of the specification at .sdd/{feature}/specification.md.
 
-**Phase 5: Fix issues (if any)**
+**Step 5: Fix issues (if any)**
 
 If the review finds P0 or P1 issues, use the Task tool to launch a subagent to fix them. Do NOT fix them yourself.
 
@@ -148,7 +148,7 @@ If the review finds P0 or P1 issues, use the Task tool to launch a subagent to f
 >
 > Save the document when done.
 
-After the fix subagent completes, re-run Phase 4 (review). Repeat Phases 4-5 until the review passes.
+After the fix subagent completes, re-run Step 4 (review). Repeat Steps 4-5 until the review passes.
 
 ### Refining a Specification
 
