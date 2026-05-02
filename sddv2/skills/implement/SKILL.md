@@ -1,7 +1,7 @@
 ---
 name: implement
 description: Implement SDD features task-by-task following the design document. Use this skill when implementing features or auto-implementing designs. One subagent per task, review at the end. Use the tasks skill for task breakdown.
-version: 0.2.1
+version: 0.2.2
 ---
 
 # Implement
@@ -75,6 +75,8 @@ Do NOT pass the specification — the design already incorporates it.
 > **Project guidelines:** Use the `handbook` skill to read and follow project conventions.
 >
 > **Testing (read this carefully):**
+> - **Scope of TDD:** application business logic and reusable IaC modules. Provisioning configs (root modules, env-specific stacks) and imperative scripts (migrations, runbooks) may be created and linted in a task, but NEVER executed during implementation. Their execution mutates real state and belongs to the user.
+> - If an AC can only be verified after such execution (e.g., a queue must exist for the feature to receive messages), implement and lint the artefact, then pause and ask the user to apply or run it. Resume verification once they confirm.
 > - Before writing any test, explore the existing test suite for patterns, fixtures, and helpers. Reuse them. Do NOT build parallel mock infrastructure when integration test support already exists.
 > - For each AC listed in this task's `Satisfies:` field, write at least one test whose failure would mean the AC is unmet. Write it FIRST. Run it. It MUST fail. If it passes immediately, the test is wrong — fix it before writing any implementation code.
 > - Each test must assert on the AC's named observable — the system, artifact, and value the spec stated. A test whose Then paraphrases the When ("when reset is requested, then it was requested") is a tautology. Delete and replace.
@@ -91,6 +93,7 @@ Do NOT pass the specification — the design already incorporates it.
 > - Only add comments where logic isn't self-evident
 > - **NEVER** add SDD artifact references in code or tests (no FR-XXX, NFR-XXX, AC-XXX, REQ-XXX)
 > - Stubs (`skip`, `todo`, `pending`, empty test bodies, `assert True`) and dead code are forbidden. If a genuine external blocker forces one, note it in the task's Notes section and resolve before the final task.
+> - Never run `terraform apply`, `kubectl apply`, `ansible-playbook`, database migrations, or any imperative script that mutates live state. Linting and validation (`terraform validate`, `kubectl diff`, `shellcheck`, etc.) are fine. If execution is required to verify an AC, ask the user — they perform it, you wait.
 >
 > **Escalation:** If you need to understand code beyond what's provided, or the task is too large for your remaining context, STOP and report what you completed and what remains. Partial progress with a clear handoff is better than exhausting context.
 

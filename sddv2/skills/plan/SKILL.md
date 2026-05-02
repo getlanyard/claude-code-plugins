@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Create and refine design documents for features using the SDD methodology. Use this skill when designing, creating designs, or refining designs. Produces structured design documents with architecture, components, test scenarios, and quality standards. Does NOT include task breakdown - use the tasks skill for that.
-version: 0.2.2
+version: 0.2.3
 ---
 
 # Plan
@@ -126,7 +126,7 @@ You MUST use the Task tool to launch a subagent that writes the design. Do NOT w
 >
 > **QA Feasibility:** For each QA-XX, can the stakeholder run it without white-box manipulation? If not, name the setup and decide: automate, narrow, or escalate.
 >
-> **Feasibility Review:** Resolve each Deferred FR — drop, narrow, or escalate. List any other design blocker.
+> **Feasibility Review:** Resolve each Deferred FR — drop, narrow, or escalate. List any other design blocker. If the feature requires provisioning or imperative-script execution to be verifiable, note which AC depends on which user-executed action. The feature still ships through one task breakdown — execution gating is a runtime concern, not a scoping one.
 >
 > **Instrumentation:** Include only when an NFR demands observability.
 >
