@@ -1,7 +1,7 @@
 ---
 name: review
 description: Review specifications, designs, and implementations for SDD features. Use this skill when reviewing specs, designs, or implementations. Produces structured review reports with severity-categorized findings.
-version: 0.3.0
+version: 0.3.1
 ---
 
 # Review
@@ -53,13 +53,15 @@ All findings use: **P0** (explicit violation of stated requirement/guideline/con
 > - Project conventions: use the `handbook` skill
 >
 > **Check for:**
-> - Every deliverable is a vertical slice — ships an end-to-end user/operator outcome on its own. Flag any deliverable that's a layer ("build the API"), a tech component ("set up the queue"), or a phase ("Phase 1").
-> - Every deliverable's Value field names a specific user/operator and what they can do after that they couldn't before. Flag generic value statements ("improves the system", "enables future work").
+> - **Outcomes only.** No architecture, components, libraries, code, file paths, or data shapes anywhere in the document. Flag any implementation detail. The roadmap's job is what users/operators can do after each step, not how it's built.
+> - **Problem and Motivation** are present at the top. Problem in user/business terms (not technical). Motivation explains why now. Flag missing or generic versions.
+> - Every deliverable is a vertical outcome — a user/operator can do something after that they couldn't before. Flag any deliverable that's a layer ("build the API"), a tech component ("set up the queue"), or a phase ("Phase 1").
+> - Every deliverable's Outcome field names a specific user/operator/business actor and what they can do after. Flag generic outcomes ("improves the system", "enables future work").
+> - In scope / Out of scope describe outcomes, not work items. Flag entries that name internal subsystems or services.
 > - Every deliverable fits one spec (~1 day). Flag any that look multi-day or multi-subsystem — these need splitting along a scope axis.
-> - Scope (out) is present and load-bearing. Flag deliverables that don't state what's deliberately excluded.
+> - Out of scope is present and load-bearing. Flag deliverables that don't state what's deliberately excluded.
 > - Most deliverables are standalone. If every deliverable depends on D-01, D-01 is plumbing — flag for reshape.
-> - Sequencing rationale explains *why* this order, not just lists the order. Flag missing or trivial rationale.
-> - Strategy is a spine, not a design. Flag strategy sections that prescribe components, libraries, or technical patterns.
+> - Sequencing rationale explains *why* this order in outcome terms, not just lists the order. Flag missing or trivial rationale.
 > - No leakage of research narrative (Observe/Orient/Diverge/Evaluate prose) — the roadmap is a forward plan, not a synthesis.
 > - Roadmap is concise (under 200 lines). Flag if longer.
 >

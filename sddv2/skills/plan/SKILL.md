@@ -1,7 +1,7 @@
 ---
 name: plan
 description: Create and refine design documents for features using the SDD methodology. Use this skill when designing, creating designs, or refining designs. Produces structured design documents with architecture, components, test scenarios, and quality standards. Does NOT include task breakdown - use the tasks skill for that.
-version: 0.2.1
+version: 0.2.2
 ---
 
 # Plan
@@ -63,7 +63,14 @@ Your **GOAL** is to complete the design template for the feature, **excluding** 
 
 **Step 1: Build the Design Brief**
 
-Read `.sdd/{feature}/specification.md` and `.sdd/{FEATURE}/research.md` (if present). Distil into a compact brief that the writer subagent can work from without opening either source file. Keep the brief under ~80 lines.
+Read `.sdd/{feature}/specification.md` and `.sdd/{feature}/research.md`
+(if present). For roadmap deliverables, research will not exist —
+the roadmap retired it after approval. In that case, the design
+subagent will rediscover technical context via Explore (capped); do
+not fabricate research highlights.
+
+Distil into a compact brief that the writer subagent can work from
+without opening either source file. Keep the brief under ~80 lines.
 
 ```
 ## Design Brief
@@ -86,6 +93,7 @@ Read `.sdd/{feature}/specification.md` and `.sdd/{FEATURE}/research.md` (if pres
 - Integration point: {1 line}
 - Constraint: {1 line}
 - Prior art: {1 line}
+{Omit this block entirely for roadmap deliverables — research is gone.}
 ```
 
 Skip research's Observe / Orient / Diverge / Evaluate narrative — only the synthesised technical findings belong in the brief.
@@ -128,7 +136,7 @@ You MUST use the Task tool to launch a subagent that writes the design. Do NOT w
 > - Aim under 300 lines total.
 > - Save the document. Never skip this.
 >
-> **Codebase exploration:** Trust the brief's research highlights. Do NOT Explore unless the brief is silent on something load-bearing — and even then, cap at 3 targeted reads.
+> **Codebase exploration:** If the brief includes Research highlights, trust them and cap Explore at 3 targeted reads when something is silent. If the brief omits Research highlights (roadmap deliverable — research has been retired), you must Explore to discover existing patterns, integration points, and constraints. Cap at 8 targeted reads; prefer reading the design template's required sections first to know what to look for.
 >
 > **Escalation:** If the brief is too ambiguous to design fully, STOP and report what you completed and what needs clarification.
 

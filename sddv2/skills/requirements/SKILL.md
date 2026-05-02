@@ -1,7 +1,7 @@
 ---
 name: requirements
 description: Create and refine specifications for features using the SDD methodology. Use this skill when writing, creating, or refining specs and specifications. Conducts discovery interviews and produces structured specification documents.
-version: 0.3.0
+version: 0.3.1
 ---
 
 # Requirements
@@ -73,9 +73,11 @@ Your **GOAL** is to complete all parts of the specification template for the fea
 
 #### Process
 
-**Phase 1: Read existing research**
+**Phase 1: Read existing context**
 
-Check if `.sdd/{FEATURE}/research.md` exists. If it does, read it — but extract only what helps write behavioral requirements: what users/operators need, what the system must do and why, constraints that shape scope (e.g., "identity unavailable on gRPC path"), and evidence for what's feasible. Skip technical approaches, architecture, data models, and code patterns — those inform the design, not the spec. The research helps you understand the problem deeply enough to write precise requirements without importing implementation details into them.
+For a **standalone feature**, check if `.sdd/{FEATURE}/research.md` exists. If it does, read it — but extract only what helps write behavioral requirements: what users/operators need, what the system must do and why, constraints that shape scope (e.g., "identity unavailable on gRPC path"), and evidence for what's feasible. Skip technical approaches, architecture, data models, and code patterns — those inform the design, not the spec.
+
+For a **roadmap deliverable**, research has been retired by the roadmap step. Read the deliverable's entry in `.sdd/{initiative}/roadmap.md` — the Outcome, In/Out scope, and Depends-on fields define the bounds. The roadmap's Problem and Motivation sections give the broader context. This is sufficient; do not seek out a research file that no longer exists.
 
 **Phase 2: Discovery Interview**
 

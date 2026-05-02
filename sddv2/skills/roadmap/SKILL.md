@@ -1,7 +1,7 @@
 ---
 name: roadmap
 description: Break a too-large initiative into a sequence of vertical deliverables, each sized to one spec. Use this skill when research reveals more work than a single specification can hold, or when the user knows up-front the work is multi-spec. Produces a roadmap document that drives subsequent requirements/plan/tasks/implement loops, one deliverable at a time.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Roadmap
@@ -59,30 +59,35 @@ You **MUST** understand project guidelines via the `handbook` skill.
 
 **Step 1: Build the Roadmap Brief**
 
-Read `.sdd/{initiative}/research.md`. Distil the synthesis into a
-compact brief the writer subagent can work from without opening the
-research file. Keep under ~80 lines.
+Read `.sdd/{initiative}/research.md`. Distil into a compact brief the
+writer subagent can work from without opening the research file. Keep
+under ~60 lines and **strip technical/implementation content** — the
+brief feeds an outcomes-only roadmap.
 
 ```
 ## Roadmap Brief
 
-**Problem:** {1 short paragraph}
+**Problem:** {1 short paragraph in user/operator/business terms}
 
-**Synthesised direction:** {the chosen approach from research's
-Synthesize phase, in 2–3 sentences}
+**Motivation:** {1 short paragraph: why now, what's at stake}
 
-**Scope axes:** {the dimensions along which the work naturally splits
-— e.g., user persona, data domain, surface area, risk tier. These
-inform deliverable boundaries.}
+**Synthesised direction:** {the chosen direction from research, stated
+as outcomes — not as architecture or technology}
 
-**Constraints:** {hard constraints from research — compliance,
-infrastructure, deadlines}
+**Scope axes:** {dimensions along which the work naturally splits —
+user persona, business domain, surface area, risk tier. These inform
+deliverable boundaries.}
 
-**Open questions left from research:** {bullets}
+**Constraints:** {hard constraints — compliance, deadlines, business
+boundaries. Skip technical constraints; those belong in design.}
+
+**Open questions:** {bullets}
 ```
 
-Skip research's Observe / Orient / Diverge / Evaluate narrative — only
-the synthesised direction and constraints belong in the brief.
+Skip research's Observe / Orient / Diverge / Evaluate narrative and any
+technical findings (existing patterns, integration points, prior art).
+The roadmap is outcomes-only; technical context belongs in the design
+phase, which will rediscover it.
 
 **Step 2: Write the roadmap**
 
@@ -102,29 +107,37 @@ Do NOT write it yourself.
 > **Roadmap Brief:**
 > {paste brief from Step 1}
 >
+> **The roadmap is outcomes-only.** No architecture, no components,
+> no libraries, no code, no file paths, no data shapes. If you find
+> yourself describing *how* something works, stop — that belongs in
+> the design phase. The roadmap captures problem, motivation, and a
+> sequence of user/operator outcomes.
+>
+> **Problem and Motivation** are top-of-document and required.
+> Problem states what's broken or missing in user/business terms.
+> Motivation states why now — what changed, what's at stake.
+>
 > **Deliverables:**
-> - Each deliverable is a **vertical slice**: it ships an end-to-end
->   user/operator outcome on its own. Not a layer (no "build the API
->   layer"), not a tech component (no "set up the database"), not a
->   phase (no "Phase 1 / Phase 2"). If a deliverable's value can only
->   be realised when paired with another, merge them.
-> - Each deliverable must fit **one spec** (~1 day of implementation
->   work). If a candidate deliverable is too big, split it along one
->   of the brief's scope axes. If you cannot split without losing the
->   end-to-end property, surface this as an open question — do not
->   ship a roadmap with oversized deliverables.
-> - Each deliverable's **Value** field names a user/operator and what
->   they can do after this deliverable that they couldn't before. "We
->   refactor X" is not a value statement; "operators can replay failed
->   webhooks" is.
-> - **Scope (out)** is load-bearing. State what is deliberately
->   excluded so reviewers understand the cut.
-> - Most deliverables should be **standalone**. If you find every
->   deliverable depends on D-01, that's a sign D-01 is plumbing
->   masquerading as a deliverable. Reshape so D-01 ships value too.
+> - Each deliverable is a **vertical outcome**: a user/operator can do
+>   something after that they couldn't before. Not a layer ("build the
+>   API"), not a tech component ("set up the queue"), not a phase
+>   ("Phase 1 / Phase 2"). If a deliverable's value can only be
+>   realised when paired with another, merge them.
+> - Each deliverable must fit **one spec** (~1 day of implementation).
+>   If a candidate is too big, split along a scope axis. If you cannot
+>   split without losing the end-to-end property, surface this as an
+>   open question — do not ship a roadmap with oversized deliverables.
+> - **Outcome** field names the user/operator/business actor and what
+>   they can do after. "We refactor X" is not an outcome; "operators
+>   can replay failed webhooks" is.
+> - **In scope / Out of scope** describe outcomes, not work. "Out of
+>   scope: bulk replay" not "out of scope: the BulkReplayService".
+> - Most deliverables should be **standalone**. If every deliverable
+>   depends on D-01, D-01 is plumbing — reshape so D-01 ships an
+>   outcome too.
 > - Order deliverables by what each one **unlocks** — feedback,
->   learning, risk reduction, or dependent work. The sequencing
->   rationale must explain why this order, not just list the order.
+>   learning, risk reduction, or dependent value. The sequencing
+>   rationale explains *why* this order in outcome terms.
 >
 > **Output rules:**
 > - Follow the template exactly. Skip optional sections that don't apply.
@@ -169,6 +182,22 @@ Add the initiative to `.sdd/index.md` (create from
 `requirements/templates/index.template.md` if it doesn't exist). The
 index entry points at the roadmap. Each deliverable's spec, once
 created, gets its own row indented under the initiative.
+
+**Step 6: Retire the research file**
+
+Once the roadmap is approved (review passes, user signs off), delete
+`.sdd/{initiative}/research.md`. The roadmap is now the source of
+truth; research was scaffolding for getting here. Git history
+preserves the deleted file for anyone who needs to revisit the
+exploration.
+
+Confirm with the user before deleting if they have not previously
+expressed standing approval for this workflow step.
+
+Downstream consequence: the design phase will rediscover technical
+context (existing patterns, integration points, prior art) via Explore
+when each deliverable's design is written. This is intentional — the
+roadmap contract is outcomes-only.
 
 ### Refining a Roadmap
 
